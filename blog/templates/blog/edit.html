@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+
+    <script src="/static/jquery-3.3.1.js"></script>
+    <link href="/static/bootstrap-3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="/static/bootstrap-3.3.7/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="/static/editormd/editormd.min.css"/>
+    <script src="/static/editormd/editormd.min.js"></script>
+
+
+
+</head>
+<body>
+<div class="row">
+  <h1 style="margin-left: 80px" class="pull-left"> markdwon 编辑器</h1>
+
+    <div style="margin-right: 80px;margin-top: 25px" class = "pull-right">
+      <a id="get-md-btn" class="btn btn-default">保存文章</a>
+      <a id="get-html-btn" class="btn btn-default">Get HTML</a>
+    </div>
+</div>
+
+
+
+
+<div id="editormd">
+    <textarea style="display:none;">### Hello Editor.md !</textarea>
+</div>
+
+</body>
+
+<script type="text/javascript">
+//    调用编辑器
+var testEditor;
+$(function() {
+    testEditor = editormd("editormd", {
+        width   : "1800px",
+        height  : "830px",
+        syncScrolling : "single",
+        path    : "/static/editormd/",
+        saveHTMLToTextarea : true,    // 保存 HTML 到 Textarea
+
+    });
+
+
+   $("#get-md-btn").bind('click', function(){
+            alert(testEditor.getMarkdown());
+        });
+
+    $("#get-html-btn").bind('click', function() {
+        alert(testEditor.getHTML());
+    });
+});
+
+
+</script>
+
+
+</html>
