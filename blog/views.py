@@ -1,7 +1,9 @@
+import  json
 from django.shortcuts import render,HttpResponse,redirect
 from django.views.generic import View
-from blog.models import UserInfo
 from django.contrib import auth
+from blog.models import UserInfo
+from blog.utils.response import BaseResponse
 # Create your views here.
 
 def index(request,*args,**kwargs):
@@ -23,13 +25,14 @@ class LoginView(View):
 
         user_object = auth.authenticate(username=name,password=password)
 
+        ret=BaseResponse()
         if user_object:
-            print('df')
             auth.login(request,user_object)
-            return redirect(to="/blog/index")
-
         else:
-            return HttpResponse("hanhjui")
+            ret.code = 300
+            ret.msg = '用户名密码错误'
+
+        return HttpResponse(json.dumps(ret.dict))
 
 
 class RegisterView(View):
