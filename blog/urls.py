@@ -1,12 +1,15 @@
 from django.urls import path
-from blog import views
+from blog.views import registe
+from blog.views import article
+
 
 urlpatterns = [
-    path('index/', views.index),
-    path('login/', views.LoginView.as_view()),
-    path('register/', views.RegisterView.as_view()),
-    path('edit/', views.EditView.as_view()),
+    path('index/', registe.index_view),
+    path('logout/', registe.logout_view),
+    path('login/', registe.LoginView.as_view()),
+    path('register/', registe.RegisterView.as_view()),
+    path('edit/', article.EditView.as_view()),
 
-    path('articles/', views.ArticlesView.as_view()),
+    path('articles/', article.ArticlesView.as_view()),
 
 ]

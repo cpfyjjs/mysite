@@ -25,7 +25,7 @@ SECRET_KEY = 'o@&tw@bxd)@+y1f6qf@^aad!)@qv-&pzrri@ht=3)bro$7ygn*'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -48,6 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'blog.utils.premission.AuthMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
