@@ -1,63 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
+{% extends './layout.html' %}
 
-    <script src="/static/jquery-3.3.1.js"></script>
-    <link href="/static/bootstrap-3.3.7/css/bootstrap.css" rel="stylesheet">
-    <script src="/static/bootstrap-3.3.7/js/bootstrap.js"></script>
-
-  <style>
-    .leader{
-      position: relative;
-      top:15px;
-    }
-    body{
-      background-color: lightslategray;
-    }
-
-
-    .img-rounded{
-      width: 360px;
-      height: 280px;
-    }
-
-  </style>
-</head>
-<body>
-
-
-
-
-<div class="container">
-  <!--导航栏-->
-<div class="header">
-  <div class="row">
-  <div class="navigation">
-
-      <!--CcC图标-->
-      <div class="col-md-2">
-        <nav class="navbar navbar-left"><h1 style="color: #204d74">Cc</h1></nav>
-      </div>
-      <!--链接导航-->
-      <div class="col-md-10">
-        <nav class="navbar  navbar-right leader ">
-
-       <a class="navbar-brand" href="#">科普文章</a>
-       <a class="navbar-brand" href="#">技术分享</a>
-       <a class="navbar-brand" href="#">视频教程</a>
-       <a class="navbar-brand" href="#">留言板</a>
-       <a class="navbar-brand" href="#">登陆|注册</a>
-    </nav>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-  <!--剧目播放-->
+{% block container %}
+<div>
+      <!--剧目播放-->
 <div class="row">
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
@@ -95,7 +40,7 @@
   </div>
 
   <!--重点内容推荐-->
-  <h1> </h1>
+<h1> </h1>
 <div class="row">
   <div class="col-md-4">
     <div>
@@ -117,20 +62,6 @@
   </div>
 
 </div>
-
-
 </div>
 
-
-
-
-
-
-
-
-
-
-
-
-</body>
-</html>
+{% endblock %}

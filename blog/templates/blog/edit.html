@@ -12,8 +12,6 @@
     <link rel="stylesheet" href="/static/editormd/editormd.min.css"/>
     <script src="/static/editormd/editormd.min.js"></script>
 
-
-
 </head>
 <body>
 <div class="row">
@@ -49,7 +47,16 @@ $(function() {
 
 
    $("#get-md-btn").bind('click', function(){
-            alert(testEditor.getMarkdown());
+            var markdwon= testEditor.getMarkdown();
+            $.ajax({
+                url:"bolg/edit/",
+                type:"POST",
+                data:{md :markdwon},
+                success:function (data) {
+                    console.log(data)
+                }
+                }
+            )
         });
 
     $("#get-html-btn").bind('click', function() {
