@@ -5,5 +5,4 @@ class BaseResponse(object):
 
     @property
     def dict(self):
-        self.code
         return {'code':self.code,'msg':self.msg}

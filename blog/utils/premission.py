@@ -11,5 +11,4 @@ class AuthMiddleware(MiddlewareMixin):
     def process_request(self,request):
         if request.path == "/blog/edit/":
             if not request.user.username:
-                print("sdfas")
                 return redirect(to='/blog/index')
