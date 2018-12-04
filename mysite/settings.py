@@ -37,7 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'blog'
+    'bbs'
 ]
 
 MIDDLEWARE = [
@@ -48,7 +48,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'blog.utils.premission.AuthMiddleware',
+    'bbs.utils.premission.AuthMiddleware',
 ]
 
 ROOT_URLCONF = 'mysite.urls'
@@ -123,8 +123,8 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
-    os.path.join(BASE_DIR,'blog/static')
+    os.path.join(BASE_DIR, 'bbs/static')
 ]
 
 
-AUTH_USER_MODEL = "blog.UserInfo"
+AUTH_USER_MODEL = "bbs.UserInfo"

@@ -1,6 +1,6 @@
 from django.urls import path
-from blog.views import registe
-from blog.views import article
+from bbs.views import registe
+from bbs.views import article
 
 
 urlpatterns = [

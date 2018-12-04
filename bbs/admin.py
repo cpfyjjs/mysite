@@ -2,7 +2,7 @@ from django.contrib import admin
 
 # Register your models here.
 
-from blog import models
+from bbs import models
 
 admin.site.register(models.UserInfo)
 admin.site.register(models.Author)

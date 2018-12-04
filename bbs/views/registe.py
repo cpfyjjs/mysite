@@ -2,8 +2,8 @@ import  json
 from django.shortcuts import render,HttpResponse,redirect
 from django.views.generic import View
 from django.contrib import auth
-from blog.models import UserInfo
-from blog.utils.response import BaseResponse
+from bbs.models import UserInfo
+from bbs.utils.response import BaseResponse
 
 
 def index_view(request,*args,**kwargs):
@@ -17,7 +17,7 @@ def logout_view(request):
     :return:
     """
     auth.logout(request)
-    return  redirect(to='/blog/index/')
+    return  redirect(to='/bbs/index/')
 
 
 

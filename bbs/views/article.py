@@ -2,8 +2,8 @@ import  json
 from django.shortcuts import render,HttpResponse,redirect
 from django.views.generic import View
 from django.contrib import auth
-from blog.models import UserInfo
-from blog.utils.response import BaseResponse
+from bbs.models import UserInfo
+from bbs.utils.response import BaseResponse
 # Create your views here.
 
 
