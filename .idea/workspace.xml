@@ -1,40 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3fbd38d6-6432-4776-a9ec-49802271e07f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/a0753b89-2c3a-476b-a8fd-a22c6fa57cc5.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources/a0753b89-2c3a-476b-a8fd-a22c6fa57cc5/storage_v2/_src_/schema/main.uQUzAA.meta" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/migrations/0001_initial.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/blog/migrations/0002_auto_20181204_1112.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f9fd70fa-c76a-4d09-a455-3686cfed2a73.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/apps.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/apps.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/migrations/0001_initial.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/migrations/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/migrations/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/static/blog/02.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/blog/static/blog/02.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/static/blog/1.jpeg" beforeDir="false" afterPath="$PROJECT_DIR$/blog/static/blog/1.jpeg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/templates/blog/articles.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/blog/articles.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/templates/blog/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/blog/edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/templates/blog/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/blog/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/templates/blog/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/blog/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/templates/blog/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/blog/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/templates/blog/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/blog/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/tests.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/tests.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/utils/premission.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/utils/premission.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/utils/response.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/utils/response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/views/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/views/article.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views/article.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bbs/views/registe.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views/registe.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mysite/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/mysite/urls.py" afterDir="false" />
-    </list>
+    <list default="true" id="3fbd38d6-6432-4776-a9ec-49802271e07f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,8 +83,8 @@
         <counts>
           <entry key="project.closed" value="4" />
           <entry key="project.open.time.4" value="2" />
-          <entry key="project.open.time.5" value="2" />
-          <entry key="project.opened" value="4" />
+          <entry key="project.open.time.5" value="3" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -128,21 +95,21 @@
           <entry key="blog_articlesdetail" value="2" />
           <entry key="blog_articleup" value="1" />
           <entry key="blog_blog" value="1" />
-          <entry key="blog_userinfo" value="1" />
+          <entry key="blog_userinfo" value="2" />
           <entry key="html" value="11" />
           <entry key="js" value="1" />
           <entry key="md" value="1" />
-          <entry key="py" value="28" />
+          <entry key="py" value="33" />
           <entry key="sql" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Database Element" value="14" />
+          <entry key="Database Element" value="15" />
           <entry key="HTML" value="11" />
           <entry key="JavaScript" value="1" />
           <entry key="Markdown" value="1" />
-          <entry key="Python" value="28" />
+          <entry key="Python" value="33" />
           <entry key="SQL" value="1" />
         </counts>
       </usages-collector>
@@ -152,7 +119,7 @@
           <entry key="dummy" value="5" />
           <entry key="html" value="1554" />
           <entry key="md" value="63" />
-          <entry key="py" value="3849" />
+          <entry key="py" value="5336" />
           <entry key="txt" value="19" />
         </counts>
       </usages-collector>
@@ -161,89 +128,64 @@
           <entry key="HTML" value="1554" />
           <entry key="Markdown" value="63" />
           <entry key="PLAIN_TEXT" value="24" />
-          <entry key="Python" value="3849" />
+          <entry key="Python" value="5336" />
           <entry key="Scratch" value="15" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.85163933">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/blog/views/article.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="360">
-                  <caret line="48" column="57" lean-forward="true" selection-start-line="48" selection-start-column="57" selection-end-line="48" selection-end-column="57" />
-                  <folding>
-                    <element signature="e#0#12#0" expanded="true" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="true">
-            <entry file="das://a0753b89-2c3a-476b-a8fd-a22c6fa57cc5/schema/main/table/blog_article">
-              <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-                <state>
-                  <filtering enabled="true" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="das://a0753b89-2c3a-476b-a8fd-a22c6fa57cc5/schema/main/table/blog_articlesdetail">
-              <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-                <state>
-                  <filtering enabled="true" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/blog/templates/blog/layout.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1180">
-                  <caret line="59" column="72" selection-start-line="59" selection-start-column="40" selection-end-line="59" selection-end-column="72" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/blog/templates/blog/edit.html">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="1140">
-                  <caret line="59" column="22" selection-start-line="59" selection-start-column="22" selection-end-line="59" selection-end-column="22" />
-                  <folding>
-                    <element signature="n#style#0;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                    <element signature="n#div#1;n#div#0;n#div#1;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-                    <element signature="n#div#1;n#div#0;n#div#2;n#div#0;n#div#0;n#body#0;n#html#0;n#!!top" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/blog/models.py">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-500">
-                  <caret line="53" column="10" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
-                  <folding>
-                    <element signature="e#0#28#0" expanded="true" />
-                    <marker date="1543916508081" expanded="true" signature="3060:3428" ph="..." />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blog/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1060">
+              <caret line="53" column="10" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+                <marker date="1543916508081" expanded="true" signature="3060:3428" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/blog/utils/froms.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="180">
+              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+              <folding>
+                <element signature="e#22#46#0" expanded="true" />
+                <marker date="1543934132218" expanded="true" signature="164:169" ph="..." />
+                <marker date="1543934132218" expanded="true" signature="3182:3238" ph="..." />
+                <marker date="1543934132218" expanded="true" signature="3311:3321" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="das://a0753b89-2c3a-476b-a8fd-a22c6fa57cc5/schema/main/table/blog_userinfo">
+          <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+            <state>
+              <filtering enabled="true" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/blog/views/article.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="540">
+              <caret line="48" column="57" selection-start-line="48" selection-start-column="57" selection-end-line="48" selection-end-column="57" />
+              <folding>
+                <element signature="e#0#12#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -276,6 +218,9 @@
         <option value="$PROJECT_DIR$/blog/models.py" />
         <option value="$PROJECT_DIR$/test.py" />
         <option value="$PROJECT_DIR$/blog/views/article.py" />
+        <option value="$PROJECT_DIR$/blog/modelfroms.py" />
+        <option value="$PROJECT_DIR$/blog/froms.py" />
+        <option value="$PROJECT_DIR$/blog/utils/froms.py" />
       </list>
     </option>
   </component>
@@ -301,6 +246,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -317,7 +263,7 @@
               <item name="mysite" type="b2602c69:ProjectViewProjectNode" />
               <item name="mysite" type="462c0819:PsiDirectoryNode" />
               <item name="blog" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="mysite" type="b2602c69:ProjectViewProjectNode" />
@@ -327,7 +273,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -338,6 +283,11 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.templateLanguages.PyTemplateLanguageModulesConfigurable" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\mysite\blog\utils" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -432,8 +382,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17963752" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18123667" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -673,6 +624,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="das://a0753b89-2c3a-476b-a8fd-a22c6fa57cc5/schema/main/table/blog_articlesdetail">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/blog/templates/blog/layout.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1180">
@@ -692,9 +650,46 @@
         </state>
       </provider>
     </entry>
+    <entry file="das://a0753b89-2c3a-476b-a8fd-a22c6fa57cc5/schema/main/table/blog_article">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blog/views/article.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="48" column="57" selection-start-line="48" selection-start-column="57" selection-end-line="48" selection-end-column="57" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/blog/utils/modelfroms.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://C:/ProgramData/Anaconda3/Lib/site-packages/django/forms/widgets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5700">
+          <caret line="285" column="6" selection-start-line="285" selection-start-column="6" selection-end-line="285" selection-end-column="6" />
+          <folding>
+            <element signature="e#29#40#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="das://a0753b89-2c3a-476b-a8fd-a22c6fa57cc5/schema/main/table/blog_userinfo">
+      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
+        <state>
+          <filtering enabled="true" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/blog/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-500">
+        <state relative-caret-position="1060">
           <caret line="53" column="10" selection-start-line="53" selection-start-column="10" selection-end-line="53" selection-end-column="10" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
@@ -703,27 +698,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/blog/views/article.py">
+    <entry file="file://$PROJECT_DIR$/blog/utils/froms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="48" column="57" lean-forward="true" selection-start-line="48" selection-start-column="57" selection-end-line="48" selection-end-column="57" />
+        <state relative-caret-position="180">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
           <folding>
-            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#22#46#0" expanded="true" />
+            <marker date="1543934132218" expanded="true" signature="164:169" ph="..." />
+            <marker date="1543934132218" expanded="true" signature="3182:3238" ph="..." />
+            <marker date="1543934132218" expanded="true" signature="3311:3321" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://a0753b89-2c3a-476b-a8fd-a22c6fa57cc5/schema/main/table/blog_articlesdetail">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="das://a0753b89-2c3a-476b-a8fd-a22c6fa57cc5/schema/main/table/blog_article">
-      <provider selected="true" editor-type-id="com.intellij.database.editor.DatabaseTableFileEditorProvider">
-        <state>
-          <filtering enabled="true" />
         </state>
       </provider>
     </entry>
