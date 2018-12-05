@@ -6,13 +6,12 @@ from django import forms
 from django.core.exceptions import ValidationError
 from blog import models
 
-
-
 # 定义一个用户注册类
-class Regsiter(forms.Form):
+class RegsiterForm(forms.Form):
     username = forms.CharField(min_length=3,
                                max_length=16,
                                label= "用户名",
+                               help_text="",
                                error_messages={
                                    "min_length":"用户名最小长度为3",
                                    "max_length":"用户名最大长度为16",
@@ -27,8 +26,11 @@ class Regsiter(forms.Form):
                                label="用户昵称",
                                error_messages={
                                    "min_length":"用户名最小长度为3",
-                                   "max_length":"用户名最大长度为32",}
-                               )
+                                   "max_length":"用户名最大长度为32",
+                               },
+                               widget=forms.widgets.TextInput(
+                                   attrs={"class": "form-control"},
+                               ))
 
     password =forms.CharField(min_length=6,
                               label="密码",
@@ -40,8 +42,8 @@ class Regsiter(forms.Form):
                                   attrs={"class":"form-control"},
                               ))
     repassword = forms.CharField(min_length=6,
-                               label="密码",
-                               error_messages={
+                               label="确认密码",
+                                error_messages={
                                    "min_length": "密码最小长度为6",
                                    "require": "密码不能为空"
                                },

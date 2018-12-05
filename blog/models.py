@@ -7,7 +7,7 @@ class UserInfo(AbstractUser):
     用户信息表
     """
     nickname = models.CharField(max_length=32,default="匿名用户",verbose_name="昵称")
-    avatar = models.CharField(max_length=128,default="default.jpg",verbose_name="头像")
+    avatar = models.FileField(upload_to="blog/static/avatars/", default="blog/static/avatars/default.png", verbose_name="头像")
     phone =models.CharField(max_length=11,null =True,unique=True,verbose_name="电话号码",blank=True)
     blog = models.OneToOneField(to="Blog",null=True,on_delete=models.CASCADE)
 

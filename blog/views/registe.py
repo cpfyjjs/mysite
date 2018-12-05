@@ -4,7 +4,7 @@ from django.views.generic import View
 from django.contrib import auth
 from blog.models import UserInfo
 from blog.utils.response import BaseResponse
-
+from blog.utils.forms import RegsiterForm
 
 def index_view(request,*args,**kwargs):
 
@@ -51,5 +51,10 @@ class RegisterView(View):
     """用户注册"""
 
     def get(self,request):
+        form_obj = RegsiterForm()
 
-        return render(request,"blog/register.html")
+        return render(request,"blog/register.html",locals())
+
+    def post(self,request):
+        pass
+
