@@ -14,13 +14,31 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path,include
+from django.shortcuts import HttpResponse
 
 from django.contrib import admin
 from blog.views import registe
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', registe.index_view),
-    path('blog/', include('blog.urls'))
-
-
+    path('blog/', include('blog.urls')),
 ]
+
+
+def bad_request(request):
+    pass
+
+def permission_denied(request):
+    pass
+
+def pag_not_found(request):
+    return HttpResponse("meiyou")
+"""
+自定义用户请求错误页面。
+需要提前将setting.py配置文件中的Debug改为False,默认为True
+"""
+
+handler400 = bad_request
+handler403 = permission_denied
+handler404 = pag_not_found
+# handler500 = pag_not_found
