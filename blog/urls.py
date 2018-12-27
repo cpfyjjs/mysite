@@ -4,6 +4,8 @@ from blog.views import registe
 from blog.views import article
 
 
+app_name = "blog"
+
 urlpatterns = [
     path('index/', registe.index_view),
     path('logout/', registe.logout_view),
@@ -14,4 +16,3 @@ urlpatterns = [
     path('articles/', article.ArticlesView.as_view()),
 
 ]
-from django.http import request

@@ -2,6 +2,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
 
+
+
+
 class UserInfo(AbstractUser):
     """
     用户信息表
@@ -21,7 +24,6 @@ class UserInfo(AbstractUser):
 
 class Author(models.Model):
     """用户信息扩展表"""
-
     user = models.OneToOneField(to="UserInfo",on_delete=models.CASCADE)
 
     class Meta:
