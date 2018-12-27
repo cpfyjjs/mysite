@@ -4,7 +4,7 @@ from blog.models import UserInfo
 
 # 用户表
 class User(models.Model):
-    user_info = models.OneToOneField(verbose_name="用户名",to='UserInfo')
+    user_info = models.OneToOneField(verbose_name="用户名",to=UserInfo,on_delete=models.CASCADE)
     role = models.ManyToManyField(to='Role')
 
     def __str__(self):
@@ -26,10 +26,10 @@ class Role(models.Model):
 
     def __str__(self):
         return self.name
-    
+
 
 # 权限详情表
-class Persmission(models.Model):
+class Permission(models.Model):
     title = models.CharField(verbose_name="权限名",max_length=64)
     url = models.CharField(max_length=256)
 
@@ -40,10 +40,11 @@ class Persmission(models.Model):
 
 # 用户操作记录表
 class App_access_log(models.Model):
-    user = models.ForeignKey(to="User")
-    url = models.ForeignKey(to='Permission')
+    user = models.ForeignKey(to="User",on_delete=models.CASCADE)
+    url = models.ForeignKey(to='Permission',on_delete = models.CASCADE)
     query_parm = models.CharField(max_length=512)
     ip = models.CharField(max_length=64)
     create_time = models.DateTimeField(auto_now_add=True)
 
-
+    def __str__(self):
+        return self.user
