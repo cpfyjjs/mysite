@@ -17,12 +17,13 @@ from django.urls import path,include,register_converter
 from django.shortcuts import HttpResponse
 from django.contrib import admin
 from blog.views import registe
-
+from rbac import views
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', registe.index_view),
+    path('login/',views.LoginView.as_view()),
     path('blog/', include('blog.urls')),
 ]
 

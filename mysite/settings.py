@@ -80,8 +80,26 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    },
+    # 配置一个名为mysql的数据库
+    'mysql':{
+        "ENGINE":"django.db.backends.mysql",
+        "NAME":"mydatabase",
+        "USER":"root",
+        "PASSWORD":"",
+        "HOST":"127.0.0.1",
+        "POST":"3306",
+        "CONN_MAX_AGE":0
+        # 默认0
+        # 数据库连接的存活时间，以秒为单位。0表示在每个请求结束时关闭数据库，None表示无限持久连接
+
     }
 }
+# 内建的数据库后端名称
+# 'django.db.backends.postgresql'
+# 'django.db.backends.mysql'
+# 'django.db.backends.sqlite3'
+# 'django.db.backends.oracle'
 
 
 # Password validation
@@ -129,3 +147,6 @@ STATICFILES_DIRS = [
 
 
 AUTH_USER_MODEL = "blog.UserInfo"
+
+# HttpResponse响应对象的默认字符集
+DEFAULT_CHARSET = 'utf8'
