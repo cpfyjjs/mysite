@@ -3,6 +3,7 @@ from django.contrib.auth.middleware import AuthenticationMiddleware
 from django.shortcuts import redirect
 
 
+
 class AuthMiddleware(MiddlewareMixin):
     """
     定义一个用户登陆验证的模块

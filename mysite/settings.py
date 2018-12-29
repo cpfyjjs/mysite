@@ -150,3 +150,5 @@ AUTH_USER_MODEL = "blog.UserInfo"
 
 # HttpResponse响应对象的默认字符集
 DEFAULT_CHARSET = 'utf8'
+
+from rest_framework import settings
