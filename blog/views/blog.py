@@ -7,7 +7,7 @@ from django.views.generic import View
 from django.http import JsonResponse
 
 
-from blog.models import Blog,Category
+from blog.models import Blog,Category,Tag
 from blog.utils.response import BaseResponse
 from blog.utils import forms
 
@@ -39,11 +39,29 @@ class CategoryView(View):
         return HttpResponse(cates)
 
     def post(self,request):
+        ret = BaseResponse()
         title = request.POST.get('category')
         cate_obj = Category.objects.filter(title=title).first()
         if cate_obj:
-            return HttpResponse('haha')
-
+            ret.code = 100
+            return JsonResponse(ret.dict)
         cate_obj =Category.objects.create(title=title,blog=request.user.blog)
+        return JsonResponse(ret.dict)
 
-        return HttpResponse('haha')
+
+class TagView(View):
+    def get(self,request):
+        user = request.user
+        tags = user.blog.tag_set.all().values("id","title")
+        tags = json.dumps(list(tags))
+        return HttpResponse(tags)
+
+    def post(self, request):
+        ret = BaseResponse()
+        title = request.POST.get('tag')
+        tag_obj = Tag.objects.filter(title=title).first()
+        if tag_obj:
+            ret.code = 100
+            return JsonResponse(ret.dict)
+        tag_obj = Tag.objects.create(title=title, blog=request.user.blog)
+        return JsonResponse(ret.dict)

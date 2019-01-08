@@ -79,25 +79,26 @@
 </div>
 
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!--文章类别模态框 CategoryModal -->
+<div class="modal fade" id="myCategoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">文章类别</h4>
+        <h4 class="modal-title" >文章类别</h4>
       </div>
       <div class="modal-body">
           <ul id="categories" class="list-group">
-
+            <!--生成文章类别列表-->
           </ul>
+          <hr>
+            <div class="row">
+                 <div class="col-sm-8">
+                     <input type="text" class="form-control" id="_category" >
+                 </div>
+            </div>
       </div>
-        <hr>
-        <div class="row">
-             <div class="col-sm-8">
-                 <input type="text" class="form-control" id="_category" >
-             </div>
-        </div>
+
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
         <button type="button" id='category_add' class="btn btn-primary">Save add</button>
@@ -106,6 +107,33 @@
   </div>
 </div>
 
+<div class="modal fade" id="myTagModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" >文章标签</h4>
+      </div>
+      <div class="modal-body">
+          <ul id="tags" class="list-group">
+                <!--生成文章标签列表-->
+          </ul>
+
+          <hr>
+            <div class="row">
+                 <div class="col-sm-8">
+                     <input type="text" class="form-control" id="_tag" >
+                 </div>
+            </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" id='tag_add' class="btn btn-primary">Save add</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 </body>
 
@@ -121,8 +149,6 @@
             saveHTMLToTextarea: true,    // 保存 HTML 到 Textarea
 
         });
-
-        //
         $("#get-md-btn").bind('click', function () {
             var md = testEditor.getMarkdown();
             var ht = testEditor.getHTML();
@@ -150,16 +176,16 @@
 
         });
 
-
         //获取html代码
         $("#get-html-btn").bind('click', function () {
             alert(testEditor.getHTML());
         });
+    });
 
-
-        //显示模态框
+    //文章类别模态框
+    $(function () {
         $("#category_show").click(function () {
-            //获取个人博客所有的的文章类别
+            //数据库获取个人博客所有的的文章类别
             $.ajax({
                 url:'/blog/category/',
                 type:'GET',
@@ -172,17 +198,15 @@
                         // li_tag.setAttribute('class',"list-group-item");
                         // li_tag.setAttribute('id',id);
                         // li_tag.innerText = title;
-
-                        var li = $(`<li class="list-group-item" id="${id}">${title}</li>`);
-                        console.log(li);
+                        var li = $(`<li class="list-group-item" >${title}</li>`);
                         $("#categories").append(li)
                     })
                 }
 
             });
 
-            $('#myModal').modal('show');
-        })
+            $('#myCategoryModal').modal('show');
+        });
 
         //添加文章类别
         $("#category_add").click(function () {
@@ -197,15 +221,99 @@
                         'category':cate
                     },
                     success:function (data) {
-                        var li = $(`<li class="list-group-item">${cate}</li>`);
-                        // console.log(li);
-                        $("#categories").append(li);
+                        if (data.code == 200){
+
+                            var li = $(`<li class="list-group-item">${cate}</li>`);
+                            $("#categories").append(li);
+                        }else{
+
+                            alert('类别已经存在了')
+                        }
+                        $("#_category").val("");
                     }
                 })
             }
         })
 
+
+        //隐藏的时候清空模态框内的内容
+        $('#myCategoryModal').on('hidden.bs.modal', function (e) {
+            $("#categories").html("");
+        });
     });
+
+
+    //文章标签模态框
+    $(function () {
+        $("#tag_show").click(function () {
+            //数据库获取个人博客所有的的文章标签
+            $.ajax({
+                url:'/blog/tag/',
+                type:'GET',
+                success:function (data) {
+                    data = JSON.parse(data);
+                    data.forEach(function (item) {
+                        id = item['id'];
+                        title = item['title'];
+                        var li = $(`<li class="list-group-item" >${title}<a id="tag_del_${id}" tag_id=${id} class="glyphicon glyphicon-minus pull-right"></a></li>`);;
+                        $("#tags").append(li);
+                    });
+
+                    //删除标签
+                    $("[id^='tag_del_']").click(function () {
+                            alert('23');
+                            var id = $(this).attr("tag_id");
+                            console.log(id)
+
+                        });
+
+                },
+            });
+            $('#myTagModal').modal('show');
+        });
+
+
+        //添加文章标签
+        $("#tag_add").click(function () {
+            var tag = $("#_tag").val();
+            if (tag){
+                //将类别添加至后台数据库，同时显现在前端页面
+                $.ajax({
+                    url:'/blog/tag/',
+                    type:'POST',
+                    data:{
+                        'tag':tag
+                    },
+                    success:function (data) {
+                        if (data.code == 200){
+                            //在模态框中添加标签
+                            var li = $(`<li class="list-group-item">${tag}</li>`);
+
+                            $("#tags").append(li);
+
+
+                            //在下拉选项中添加标签
+                             //edit选中添加
+                            // <option tag_id="{{item.id}}">{{item.title}}</option>
+                            // option_tag = $(`<option tag_id="${id}">${title}</option>`);
+                            // $("#category").append(option_tag);
+                        }else{
+                            alert('类别已经存在了')
+                        }
+                        $("#_tag").val("");
+
+                    }
+                })
+            }
+        });
+
+
+        //隐藏的时候清空模态框内的内容
+        $('#myTagModal').on('hidden.bs.modal', function (e) {
+            $("#tags").html("");
+        });
+
+    })
 
 
 </script>
