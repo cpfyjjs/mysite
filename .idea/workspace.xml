@@ -1,13 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3fbd38d6-6432-4776-a9ec-49802271e07f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/blog/edit.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/blog/edit.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/views/blog.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views/blog.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-    </list>
+    <list default="true" id="3fbd38d6-6432-4776-a9ec-49802271e07f" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +90,7 @@
     <session id="-1214390320">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="20" />
+          <entry key="project.closed" value="21" />
           <entry key="project.open.time.0" value="5" />
           <entry key="project.open.time.1" value="3" />
           <entry key="project.open.time.2" value="3" />
@@ -310,7 +304,7 @@
       <path value="$PROJECT_DIR$/static/editormd/codemirror/package.json" />
     </packageJsonPaths>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-213" />
     <option name="y" value="312" />
     <option name="width" value="1936" />
@@ -536,15 +530,14 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.88095236" visible="true" weight="0.20042644" />
-      <window_info id="Structure" order="1" sideWeight="0.11904762" side_tool="true" visible="true" weight="0.20042644" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.8818283" visible="true" weight="0.20042644" />
+      <window_info id="Structure" order="1" sideWeight="0.118171684" side_tool="true" visible="true" weight="0.20042644" />
       <window_info id="Favorites" order="2" sideWeight="0.15789473" side_tool="true" weight="0.17697228" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.35451505" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.29765886" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.29765886" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
