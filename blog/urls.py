@@ -2,7 +2,7 @@ from django.urls import path
 from django.urls import re_path
 from blog.views import registe
 from blog.views import article
-
+from blog.views import blog
 
 app_name = "blog"
 
@@ -14,5 +14,6 @@ urlpatterns = [
     path('edit/', article.EditView.as_view()),
 
     path('articles/', article.ArticlesView.as_view()),
+    path('add_blog/', blog.BlogView.as_view()),
 
 ]

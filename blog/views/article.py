@@ -13,19 +13,19 @@ from blog.utils.response import BaseResponse
 
 
 
-
-
 class EditView(View):
     """编辑文章"""
-
-
     def get(self,requset):
-        user = requset.user
+        # 如果此人没有博客，新建博客
+        if not requset.user.blog:
+            return redirect(to='/blog/add_blog/')
         categories = requset.user.blog.category_set.all()
         tags = requset.user.blog.tag_set.all()
 
         ret = {"categories":categories,"tags":tags}
         return render(requset,"blog/edit.html",ret)
+
+
 
     def post(self,request):
         """

@@ -30,48 +30,43 @@
     <div class="block">
         <div class="row">
             <div class="col-md-4 col-md-offset-4">
-                <!--<p class="title">新用户注册</p>-->
+
                 <div class="form-horizontal">
                     {% csrf_token %}
-
                     <!--form 表单自动生成-->
+                    <div id="form">
                     {% for item in form_obj %}
                     <div class="form-group">
                         <label for="{{ item.id_for_label }}" class="col-md-3 control-label">{{ item.label }}</label>
                         <div class="col-md-9">
-                            {{ item }}
+                            {{ item }}<span >&nbsp;</span>
                         </div>
-                        <span class="help-block">
-                                {{ item.errors.0 }}
-                            </span>
+
                     </div>
                     {% endfor %}
+                    </div>
 
                     <!--上传头像-->
                     <div class="form-group">
                         <label for="" class="col-md-3 control-label">头像</label>
                         <div class="col-md-9">
-                            <label for="id_avatar"><img id="avatar-img" src="/static/avatars/default.png" alt=""></label>
+                            <label for="id_avatar"><img id="avatar-img" width="40" height="40" src="/static/avatars/default.png" alt=""></label>
                             <input accept="image/*" type="file" name="avatar" id="id_avatar" style="display: none">
                             <span class="help-block"></span>
                         </div>
                         <span class="help-block"></span>
                     </div>
-
                     <!--登陆-->
                     <div class="form-group">
 
                         <div class="col-md-9 col-md-offset-3">
                             <p class="pull-right ">
                                 <a href="/blog/index">返回</a>
-                                <a id="submit" class="btn btn-default btn-success">注册</a>
+                                <a id='submit' class="btn btn-default btn-success">注册</a>
                             </p>
                         </div>
-
-
                     </div>
                 </div>
-                <!--注册返回-->
             </div>
         </div>
 
@@ -85,7 +80,61 @@
 <script>
     $(function () {
 
-    //
+        //找到头像的input标签绑定change事件
+        $('#id_avatar').change(function () {
+            // 1.创建一个读取文件的对象
+            var filedReader = new FileReader();
+            // 2.选区当前的文件
+            filedReader.readAsDataURL(this.files[0]);
+            filedReader.onload = function () {
+                // 3.等待上一步读取完成后,将新的图片加载
+                $('#avatar-img').attr('src',filedReader.result)
+            }
+        })
+
+        //Ajax提交用户数据
+        $('#submit').click(function () {
+            var formData = new FormData();
+            formData.append('username',$("#id_username").val());
+            formData.append('nickname',$("#id_nickname").val());
+            formData.append('password',$("#id_password").val());
+            formData.append('repassword',$("#id_repassword").val());
+            formData.append('email',$("#id_email").val());
+            formData.append('phone',$("#id_phone").val());
+            formData.append('avatar',$("#id_avatar")[0].files[0]);
+            formData.append("csrfmiddlewaretoken", $("[name='csrfmiddlewaretoken']").val());
+
+            // ajax提交数据
+            $.ajax({
+                url:'/blog/register/',
+                type:'POST',
+                processData:false,
+                contentType:false,
+                data:formData,
+                success:function (data) {
+                    console.log(data);
+                    if (data.code == 200){
+                        location.assign('/blog/index/')
+                    }
+                    else{
+                        console.log('失败')
+                        $.each(data.msg,function (key,value) {
+                            $("#id_"+key).next('span').text(value[0]).parent().addClass("has-error")
+                        })
+                    }
+                }
+            })
+        })
+
+
+        //将所有input绑定获取焦点的事件，将错误信息清空
+        $("#form input").focus(function () {
+            console.log(this);
+            $(this).next().html('&nbsp;');
+            $(this).parent().removeClass("has-error");
+        })
+
+
 
     });
 </script>

@@ -1,15 +1,18 @@
 import  json
 from django.shortcuts import render,HttpResponse,redirect
+from django.http import JsonResponse
 from django.views.generic import View
 from django.contrib import auth
 from blog.models import UserInfo
 from blog.utils.response import BaseResponse
 from blog.utils.forms import RegsiterForm
 
+# 主页
 def index_view(request,*args,**kwargs):
 
     return render(request, "blog/index.html")
 
+# 用户登出
 def logout_view(request):
     """
     用户登出
@@ -56,5 +59,18 @@ class RegisterView(View):
         return render(request,"blog/register.html",locals())
 
     def post(self,request):
-        pass
+        ret = BaseResponse()
+
+        form_obj = RegsiterForm(request.POST)
+
+        if form_obj.is_valid():
+            form_obj.cleaned_data.pop('repassword')
+            avatar_img = request.FILES.get('avatar')
+            UserInfo.objects.create(**form_obj.cleaned_data,avatar=avatar_img)
+            return JsonResponse(ret.dict)
+        else:
+            ret.code = 100
+            ret.msg = form_obj.errors
+            return JsonResponse(ret.dict)
+
 

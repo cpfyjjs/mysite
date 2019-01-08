@@ -109,9 +109,65 @@ class RegsiterForm(forms.Form):
 
 
 
+class BlogForm(forms.Form):
+    title = forms.CharField(min_length=3,
+                               max_length=32,
+                               label= "博客名",
+                               error_messages={
+                                   "min_length":"最小长度为3",
+                                   "max_length":"最大长度为32",
+                                   "required":"不能为空",
+                               },
+                               widget=forms.widgets.TextInput(
+                                   attrs={"class":"form-control"},
+                               ))
+
+    motto = forms.CharField(min_length=3,
+                               max_length=128,
+                               label="座右铭",
+                               error_messages={
+                                   "min_length":"最小长度为3",
+                                   "max_length":"最大长度为128",
+                               },
+                               widget=forms.widgets.TextInput(
+                                   attrs={"class": "form-control"},
+                               ))
+
+    theme =forms.CharField(max_length=32,
+                               label="主体",
+                              error_messages={
+                                  "max_length":"最大长度为32",
+                                  "require":"不能为空"
+                              },
+                              widget=forms.widgets.TextInput(
+                                  attrs={"class":"form-control"},
+                              ))
 
 
+class CategoryForm(forms.Form):
+    title = forms.CharField(min_length=3,
+                               max_length=32,
+                               label= "类别",
+                               help_text="",
+                               error_messages={
+                                   "min_length":"最小长度为3",
+                                   "max_length":"最大长度为32",
+                                   "required":"不能为空",
+                               },
+                               widget=forms.widgets.TextInput(
+                                   attrs={"class":"form-control"},
+                               ))
 
-
-
-
+class TagForm(forms.Form):
+    title = forms.CharField(min_length=3,
+                               max_length=32,
+                               label= "类别",
+                               help_text="",
+                               error_messages={
+                                   "min_length":"最小长度为3",
+                                   "max_length":"最大长度为32",
+                                   "required":"不能为空",
+                               },
+                               widget=forms.widgets.TextInput(
+                                   attrs={"class":"form-control"},
+                               ))

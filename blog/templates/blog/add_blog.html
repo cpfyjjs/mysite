@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title</title>
+
+    <script src="/static/jquery-3.3.1.js"></script>
+    <link href="/static/bootstrap-3.3.7/css/bootstrap.css" rel="stylesheet">
+    <script src="/static/bootstrap-3.3.7/js/bootstrap.js"></script>
+
+
+    <style>
+        .block {
+            padding-top: 230px;
+
+        }
+
+        .login {
+            padding-top: 20px;
+            padding-left: 30px;
+            padding-right: 30px;
+            width: 100%;
+            height: 250px;
+            background-color: #EBEFE7;
+        }
+
+        .register {
+            padding-top: 13px;
+        }
+    </style>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="block">
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <div id="form">
+                    {% for item in blog_form %}
+                    <div class="form-group">
+                        <label for="{{ item.id_for_label }}" class="col-md-3 control-label">{{ item.label }}</label>
+                        <div class="col-md-9">
+                            {{ item }}<span>&nbsp;</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    {% for item in category_form %}
+
+                </div>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $(function () {
+
+        //提交用户名密码
+
+
+    });
+</script>
+
+</body>
+</html>
