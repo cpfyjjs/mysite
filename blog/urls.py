@@ -15,5 +15,6 @@ urlpatterns = [
 
     path('articles/', article.ArticlesView.as_view()),
     path('add_blog/', blog.BlogView.as_view()),
+    path('category/', blog.CategoryView.as_view()),
 
 ]
