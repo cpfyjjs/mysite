@@ -12,14 +12,12 @@
     <style>
         .leader {
             position: relative;
-            top: 15px;
+            top: 5px;
         }
-
-        .img-rounded {
-            width: 360px;
-            height: 280px;
+        .header{
+            height: 50px;
+            background-color: #EBEFE7;
         }
-
 
     </style>
     {% block css %}
@@ -28,46 +26,39 @@
 <body>
 
 
-<div class="container-fluid" style="background-color: lightslategray">
+<div class="container-fluid" style="background-color:#e4e4e4">
     <div class="container">
-        <div class="header">
-            <div class="row">
 
-                <!--CcC图标-->
-                <div class="col-md-2">
-
-                    <h1 style="color: #204d74"><a href="">CoC</a></h1>
-                </div>
-                <!--链接导航-->
-                <div class="col-md-10">
-                    <nav class="navbar  navbar-right leader ">
-
-                        <a class="navbar-brand" href="/blog/articles/">科普文章</a>
-                        <a class="navbar-brand" href="#">技术分享</a>
-                        <a class="navbar-brand" href="#">视频教程</a>
-                        <a class="navbar-brand" href="/blog/edit/">编辑文章</a>
-                        {% if not request.user.username %}
-
-                            <a class="navbar-brand" href="/blog/login">登陆|注册</a>
-                        {% else %}
-                        <ul class="navbar-brand navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">{{ request.user.username }} <span class="caret"></span></a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#">我的主页</a></li>
-                                    <li><a href="#">设置</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="/blog/logout">注销</a></li>
-                                </ul>
-                            </li>
+            <!--CcC图标-->
+            <nav class="navbar navbar-left">
+                <a class="navbar-brand navbar-brand" href="#" style="font-size: 30px;position: relative;top: 8px">个人小站</a>
+            </nav>
+            <!--链接导航-->
+            <nav class="navbar  navbar-right leader">
+                <a class="navbar-brand" href="/blog/articles/">科普文章</a>
+                <a class="navbar-brand" href="#">技术分享</a>
+                <a class="navbar-brand" href="#">视频教程</a>
+                <a class="navbar-brand" href="/blog/edit/">编辑文章</a>
+                {% if not request.user.username %}
+                <a class="navbar-brand" href="/blog/login">登陆|注册</a>
+                {% else %}
+                <ul class="navbar-brand navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                           aria-haspopup="true" aria-expanded="false">{{ request.user.username }} <span
+                                class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#">我的主页</a></li>
+                            <li><a href="#">设置</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="/blog/logout">注销</a></li>
                         </ul>
-                        {% endif %}
-                    </nav>
-                </div>
+                    </li>
+                </ul>
+                {% endif %}
+            </nav>
 
-            </div>
-        </div>
+
     </div>
 
 </div>

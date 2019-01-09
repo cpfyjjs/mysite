@@ -71,8 +71,7 @@ class ArticlesView(View):
             id = request.GET.get('id')
             id = int(id)
             art_obj = Article.objects.filter(id=id).first()
-
-            art_detail = ArticleDetail.objects.filter(id=id).first()
+            art_detail = art_obj.detail
             return render(request,"blog/article.html",locals())
         else:
             art_objs = Article.objects.all()

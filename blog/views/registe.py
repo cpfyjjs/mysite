@@ -3,6 +3,7 @@ from django.shortcuts import render,HttpResponse,redirect
 from django.http import JsonResponse
 from django.views.generic import View
 from django.contrib import auth
+from django.contrib.auth.hashers import make_password
 from blog.models import UserInfo
 from blog.utils.response import BaseResponse
 from blog.utils.forms import RegsiterForm
@@ -66,7 +67,9 @@ class RegisterView(View):
         if form_obj.is_valid():
             form_obj.cleaned_data.pop('repassword')
             avatar_img = request.FILES.get('avatar')
-            UserInfo.objects.create(**form_obj.cleaned_data,avatar=avatar_img)
+            password = form_obj.cleaned_data.pop('password')
+            password = make_password(password)
+            UserInfo.objects.create(**form_obj.cleaned_data,avatar=avatar_img,password=password)
             return JsonResponse(ret.dict)
         else:
             ret.code = 100

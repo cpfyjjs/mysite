@@ -23,7 +23,7 @@
 <!--内容填充-->
 {% block container %}
 
-
+{% load poll_extras %}
 <div class="row" style="margin-top: 10px">
     <div class="col-md-8">
 
@@ -31,7 +31,7 @@
         <div class="content">
             <div class="title"><a href="/blog/articles/?id={{item.id}}">{{item.title}}</a></div>
             <div class="row">
-                <div class="col-md-1"><img src="" alt=""></div>
+                <div class="col-md-1"><img src="{{item.user.avatar|avatar_cut}}" alt="" width="40" height="40"></div>
                 <div class="col-md-11">
                     <div>
                         <span>{{item.user}}</span><span>个人简介</span>

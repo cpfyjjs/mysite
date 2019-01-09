@@ -1,19 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Title</title>
+{% extends './layout.html' %}
 
-    <script src="/static/jquery-3.3.1.js"></script>
-    <link href="/static/bootstrap-3.3.7/css/bootstrap.css" rel="stylesheet">
-    <script src="/static/bootstrap-3.3.7/js/bootstrap.js"></script>
-</head>
-<body>
+<!--css样式-->
+{% block css %}
+<style>
+
+</style>
+
+{% endblock %}
+
+<!--内容填充-->
+{% block container %}
 
 <div class="row">
-    <div class="col-md-7 col-md-offset-2">{{art_detail.content_html|safe}}</div>
+    <div class="col-md-8 ">{{art_detail.content_html|safe}}</div>
 </div>
 
-</body>
-</html>
+
+
+{% endblock %}
