@@ -159,6 +159,7 @@
             if(!(md&&title&&cate_id)){
                 alert("警告")
             }else {
+                // 发送Ajax请求将文章保存至远端数据库
                 $.ajax({
                     url: "",
                     type: "POST",
@@ -169,7 +170,12 @@
                         tag_id:tag_id
                     },
                     success: function (data) {
-                        console.log(data)
+                        if(data.code==100){
+                            alert(data.msg);
+                        }else{
+                            location.assign("/blog/articles/")
+                        }
+
                     }
                 })
             }
@@ -245,6 +251,22 @@
 
     //文章标签模态框
     $(function () {
+
+        function tag_del(id){
+            $.ajax({
+                    url:'/blog/tag/',
+                    type:'DELETE',
+                    data:{id:id},
+                    success:function (data) {
+                        if (data.code==100){
+                            alert("删除失败！")
+                        }else{
+                            $(`#tag_del_${id}`).parent().remove();
+                        }
+                    },
+                })
+        }
+
         $("#tag_show").click(function () {
             //数据库获取个人博客所有的的文章标签
             $.ajax({
@@ -261,11 +283,11 @@
 
                     //删除标签
                     $("[id^='tag_del_']").click(function () {
-                            alert('23');
-                            var id = $(this).attr("tag_id");
-                            console.log(id)
+                        var id = $(this).attr("tag_id");
+                        // Ajax发送文件删除信息
+                        tag_del(id)
 
-                        });
+                    });
 
                 },
             });
@@ -287,9 +309,13 @@
                     success:function (data) {
                         if (data.code == 200){
                             //在模态框中添加标签
-                            var li = $(`<li class="list-group-item">${tag}</li>`);
+                            var id = data.msg;
+                            var li = $(`<li class="list-group-item">${tag}<a id="tag_del_${id}" tag_id=${id} class="glyphicon glyphicon-minus pull-right"></a></li>`);
 
                             $("#tags").append(li);
+                            $(`#tag_del_${id}`).click(function () {
+                                tag_del(id);
+                            });
 
 
                             //在下拉选项中添加标签
@@ -312,6 +338,7 @@
         $('#myTagModal').on('hidden.bs.modal', function (e) {
             $("#tags").html("");
         });
+
 
     })
 

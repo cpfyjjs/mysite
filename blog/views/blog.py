@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 
 from django.shortcuts import render,HttpResponse
 from django.views.generic import View
-from django.http import JsonResponse
+from django.http import JsonResponse,QueryDict
 
 
 from blog.models import Blog,Category,Tag
@@ -64,4 +64,16 @@ class TagView(View):
             ret.code = 100
             return JsonResponse(ret.dict)
         tag_obj = Tag.objects.create(title=title, blog=request.user.blog)
+        id = tag_obj.id
+        ret.msg = id
+        return JsonResponse(ret.dict)
+
+
+    def delete(self,request):
+        ret = BaseResponse()
+        id = QueryDict(request.body).get('id')
+        try:
+            tag_obj =Tag.objects.filter(id=id).delete()
+        except:
+            ret.code = 100
         return JsonResponse(ret.dict)

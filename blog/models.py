@@ -68,10 +68,10 @@ class Article(models.Model):
         verbose_name_plural = verbose_name
 
 
-class ArticlesDetail(models.Model):
+class ArticleDetail(models.Model):
     content_md = models.TextField(blank=True)
     content_html = models.TextField(blank=True)
-    article =models.ForeignKey(to="Article",on_delete=models.CASCADE)
+    article =models.OneToOneField(to="Article",on_delete=models.CASCADE,related_name='detail')
 
     class Meta:
         verbose_name = "文章详情"

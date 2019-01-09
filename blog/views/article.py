@@ -4,10 +4,11 @@ from bs4 import BeautifulSoup
 
 from django.shortcuts import render,HttpResponse,redirect
 from django.views.generic import View
+from django.http import JsonResponse
 from django.contrib import auth
 from django.db import transaction
 
-from blog.models import UserInfo,Article,ArticlesDetail
+from blog.models import UserInfo,Article,ArticleDetail
 from blog.utils.response import BaseResponse
 # Create your views here.
 
@@ -33,6 +34,7 @@ class EditView(View):
         :param request:
         :return:
         """
+        ret = BaseResponse()
         md = request.POST.get('md')
         html = request.POST.get('ht')
         title = request.POST.get('title')
@@ -50,16 +52,13 @@ class EditView(View):
                                        description=description,
                                        category_id = int(cate_id))
 
-                art_detail_obj= ArticlesDetail.objects.create(content_md=md,
+                art_detail_obj= ArticleDetail.objects.create(content_md=md,
                                                               content_html=html,
                                                               article=art_obj)
         except Exception as e:
-            print("错误")
-
-
-
-        print(md,html,title,cate_id,tag_id)
-        return HttpResponse("kasih")
+            ret.code =100
+            ret.msg = "数据库保存文章失败"
+        return JsonResponse(ret.dict)
 
 
 
@@ -68,7 +67,16 @@ class ArticlesView(View):
     """文章列表页"""
 
     def get(self,request):
-        return render(request,"blog/articles.html")
+        if request.GET.get('id'):
+            id = request.GET.get('id')
+            id = int(id)
+            art_obj = Article.objects.filter(id=id).first()
+
+            art_detail = ArticleDetail.objects.filter(id=id).first()
+            return render(request,"blog/article.html",locals())
+        else:
+            art_objs = Article.objects.all()
+            return render(request, "blog/articles.html", {'art_objs': art_objs})
 
 
     def post(self,request):
