@@ -3,6 +3,7 @@ from django.urls import re_path
 from blog.views import registe
 from blog.views import article
 from blog.views import blog
+from blog.views import comment
 
 app_name = "blog"
 
@@ -17,5 +18,6 @@ urlpatterns = [
     path('add_blog/', blog.BlogView.as_view()),
     path('category/', blog.CategoryView.as_view()),
     path('tag/', blog.TagView.as_view()),
+    path('comment/', comment.CommentView.as_view()),
 
 ]

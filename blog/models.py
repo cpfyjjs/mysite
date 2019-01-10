@@ -130,8 +130,8 @@ class Comment(models.Model):
     user = models.ForeignKey(to ="UserInfo",on_delete=models.CASCADE)
     article = models.ForeignKey(to="Article",on_delete=models.CASCADE)
     content = models.CharField(max_length=512,)
-    create_time = models.DateTimeField()
-    parent_comment = models.ForeignKey(to ="self",on_delete=models.CASCADE)
+    create_time = models.DateTimeField(default = timezone.now)
+    parent_comment = models.ForeignKey(to ="self",on_delete=models.CASCADE,null=True,blank=True)
 
     def __str__(self):
         return self.content[:20]

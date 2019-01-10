@@ -1,8 +1,13 @@
 {% extends './layout.html' %}
 
+
 <!--css样式-->
 {% block css %}
 <style>
+    .art_footer {
+        margin-top: 60px;
+        margin-bottom: 60px;
+    }
 
 </style>
 
@@ -10,11 +15,145 @@
 
 <!--内容填充-->
 {% block container %}
-
 <div class="row">
-    <div class="col-md-8 ">{{art_detail.content_html|safe}}</div>
+    <!--文章-->
+    <div class="col-md-8 ">
+        <div class="art_header">
+
+        </div>
+
+        <div class="art_body">
+            {{art_detail.content_html|safe}}
+        </div>
+
+        <div class="art_footer">
+            <div class="copy_text">著作权归文章作者所有</div>
+            <ul class="nav nav-pills" role="tablist">
+                <li role="presentation"><a href="#"><span class="badge">python</span></a></li>
+                <li role="presentation"><a href="#"><span class="badge">C++</span></a></li>
+                <li role="presentation"><a href="#"><span class="badge">C##</span></a></li>
+            </ul>
+            <!--<div class="row">-->
+                <!--<div class="col-md-4">点赞</div>-->
+            <!--</div>-->
+        </div>
+
+
+        <div class="art_comment">
+            <hr>
+            <div class="push_comment row">
+                <div class="col-md-1">头像</div>
+                <div class="col-md-11">
+                    <textarea name="" id="comment" class="form-control" rows="5"></textarea>
+
+                    <a id="comment_push" class="btn btn-default pull-right" role="button" style="margin-top: 5px">发布</a>
+
+
+                </div>
+            </div>
+            <hr>
+        </div>
+
+        <div class="comments">
+
+            <div class="panel panel-default">
+                <div class="panel-heading">评论</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-1">头像</div>
+                        <div class="col-md-11">
+                            <div>
+                                <span>作者</span>
+                                <span class="pull-right">时间</span>
+                            </div>
+                            <div class="content">
+                                真好看
+                            </div>
+                            <div>
+                                <span>点赞</span>
+                                <span>回复</span>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="panel-footer">Panel footer</div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    <div class="col-md-1"></div>
+
+    <!--侧边栏-->
+    <div class="col-md-3" style="margin-top: 20px">
+        <div class="panel panel-success">
+            <div class="panel-heading">Panel heading without title</div>
+            <!--<div class="panel-body">-->
+
+            <!--</div>-->
+            <ul class="list-group">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+        </div>
+
+        <div class="panel panel-info">
+            <div class="panel-heading">Panel heading without title</div>
+
+            <ul class="list-group">
+                <li class="list-group-item">Cras justo odio</li>
+                <li class="list-group-item">Dapibus ac facilisis in</li>
+                <li class="list-group-item">Morbi leo risus</li>
+                <li class="list-group-item">Porta ac consectetur ac</li>
+                <li class="list-group-item">Vestibulum at eros</li>
+            </ul>
+        </div>
+
+
+    </div>
 </div>
 
+
+<div>
+    <span id="article_id" value="{{art_obj.id}}"></span>
+    <span id="user_id" value="{{request.user.id}}"></span>
+</div>
+
+{% endblock %}
+
+
+{% block script %}
+
+<script>
+    $(function () {
+
+        //发布评论
+        $("#comment_push").click(function () {
+            var article_id = $("#article_id").attr("value");
+            var user_id = $("#user_id").attr("value");
+            var content = $("#comment").val();
+            $.ajax({
+                url:"/blog/comment/",
+                type:"POST",
+                data:{
+                    article_id:article_id,
+                    user_id:user_id,
+                    content:content,
+                },
+                success:function (data) {
+                    console.log(data)
+                }
+            })
+        })
+    })
+</script>
 
 
 {% endblock %}
