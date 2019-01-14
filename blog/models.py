@@ -132,6 +132,7 @@ class Comment(models.Model):
     content = models.CharField(max_length=512,)
     create_time = models.DateTimeField(default = timezone.now)
     parent_comment = models.ForeignKey(to ="self",on_delete=models.CASCADE,null=True,blank=True)
+    depth = models.IntegerField(verbose_name='深度',default=0)
 
     def __str__(self):
         return self.content[:20]

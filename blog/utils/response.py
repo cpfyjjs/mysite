@@ -1,8 +1,8 @@
 class BaseResponse(object):
     def __init__(self):
         self.code = 200
-        self.msg = None
+        self.msg = ''
 
     @property
     def dict(self):
-        return {'code':self.code,'msg':self.msg}
+        return self.__dict__

@@ -22,6 +22,8 @@
     <div>
         <span id="article_id" value="{{art_obj.id}}"></span>
         <span id="user_id" value="{{request.user.id}}"></span>
+        <span id="username" value="{{request.user.username}}"></span>
+        <span id="avatar" value="{{request.user.avatar|avatar_cut}}"></span>
     </div>
     <!--文章-->
     <div class="col-md-8 ">
@@ -62,7 +64,7 @@
         <div class="comments">
             <div class="panel panel-default">
                 <div class="panel-heading">评论</div>
-                <div class="panel-body" id="content_body">
+                <div class="panel-body" id="comment_body">
 
                 </div>
                 <div class="panel-footer">Panel footer</div>
@@ -152,59 +154,144 @@
                         let content = item['content'];
                         let create_time = item['create_time'];
                         let parent_comment_id = item[`parent_comment_id`];
-                        console.log(parent_comment_id)
+                        let depth = item['depth'];
+
+
                         if (parent_comment_id === null) {
-                            var comment_html = `<div class="row"><div class="col-md-1"><img src=${avatar} alt="" width="40" height="40"></div><div class="col-md-11"><div class="row"><div class="col-md-12"><p class="pull-left">${username}</p><p class="pull-right">${create_time}</p></div></div><div clas="row"><div class="content"><p>${content}</p></div><div><span id="like_${id}">点赞</span><span id="reply_${id}" class="btn">回复</span></div><div class="reply"></div>
-                                <div class="child_comments"></div></div></div></div><hr>`
-                            $("#content_body").append(comment_html);
+                            var comment_html = `<div class="comment-group"><div class="row"><div class="col-md-1"><img src=${avatar} alt="" width="30" height="30"></div><div class="col-md-11"><div class="row"><div class="col-md-12"><p class="pull-left">${username}</p><p class="pull-right">${create_time}</p></div></div><div clas="row"><div class="content"><p>${content}</p></div><div><span id="like_${id}">查看全部</span><span>&nbsp;&nbsp;&nbsp;</span><span class="reply" value="${id}">回复</span><span class="delete_comment pull-right" delete_id="${id}">删除</span></div>
+                                <div class="child_comments"></div></div></div></div><hr></div>`
+                            $("#comment_body").append(comment_html);
                         } else {
-
+                            var comment_html = `<div class="comment-group"><hr><div class="row"><div class="col-md-1"><img src=${avatar} alt="" width="30" height="30"></div><div class="col-md-11"><div class="row"><div class="col-md-12"><p class="pull-left">${username}</p><p class="pull-right">${create_time}</p></div></div><div clas="row"><div class="content"><p>${content}</p></div><div><span id="like_${id}">查看全部</span><span>&nbsp;&nbsp;&nbsp;</span><span class="reply" value="${id}">回复</span><span class="delete_comment pull-right" delete_id="${id}">删除</span></div>
+                                <div class="child_comments"></div></div></div></div></div>`
+                            $(`#like_${parent_comment_id}`).parent().next().append(comment_html);
                         }
-
-                        //为每个生成的评论的回复标签绑定事件
-                        $(`#reply_${id}`).click(function () {
-                            if (button) {
-                                let reply = `<div class=><textarea class="form-control" rows="2"></textarea><a id="reply_push" class="btn btn-default pull-right" role="button" style="margin-top: 5px" value="${id}">发布</a></div>`;
-                                $(this).parent().next().append(reply);
-                                $(this).attr({"disabled": true});
-
-                                $(`#reply_push`).click(function () {
-                                    var article_id = $("#article_id").attr("value");
-                                    var user_id = $("#user_id").attr("value");
-                                    var content = $(this).prev().val();
-                                    var parent_id = $(this).attr('value');
-                                    console.log(parent_id);
-                                    console.log(content);
-
-                                    $.ajax({
-                                        url: "/blog/comment/",
-                                        type: "POST",
-                                        data: {
-                                            article_id: article_id,
-                                            user_id: user_id,
-                                            content: content,
-                                            parent_id: parent_id,
-                                        },
-                                        success: function (data) {
-                                            console.log(data)
-                                        }
-                                    })
-
-
-                                })
-                            }
-                            button = false;
-
-                        });
-
-                        //为每个自评论绑定回复事件
-
                     }
+
+
+                    //为每个评论绑定删除事件
+                    $("#comment_body .delete_comment").click(function () {
+                        let delete_id = $(this).attr("delete_id");
+                        let that = this;
+                        //发送ajax删除评论
+                        $.ajax({
+                            url: "/blog/comment/",
+                            type: "DELETE",
+                            data: {
+                                delete_id: delete_id,
+                            },
+                            success: function (data) {
+                                let ret = data;
+                                if (ret.code === 100) {
+                                    alert("删除失败")
+                                } else {
+                                    console.log(that);
+                                    $(that).parentsUntil('.comment-group').remove('hr');
+                                    $(that).parentsUntil('.comment-group').remove();
+                                }
+                            },
+                        })
+                    })
+
+
                 }
             })
         }
 
         generateComment();
+
+        //为每个生成的评论的回复标签绑定事件
+        $("#comment_body").on("click", '.reply', function () {
+            if (button) {
+                let id = $(this).attr("value");
+                console.log(id);
+                let reply = `<div class='reply_content row'>
+    <div class="col-md-10"><textarea class="form-control" rows="2"></textarea></div>
+    <div class="col-md-2">
+        <a id="reply_push" class="btn btn-default pull-right" role="button"  value="${id}">发布</a>
+    </div>
+</div>`
+                $(this).parent().next().prepend(reply);
+                $(this).attr({"disabled": true});
+
+                //绑定评论事件
+                $(`#reply_push`).click(function () {
+                    var article_id = $("#article_id").attr("value");
+                    var user_id = $("#user_id").attr("value");
+                    var content = $(this).parent().prev().find('textarea').val();
+                    var parent_id = $(this).attr('value');
+                    var username = $("#username").attr("value");
+                    var avatar = $("#avatar").attr("value");
+                    $.ajax({
+                        url: "/blog/comment/",
+                        type: "POST",
+                        data: {
+                            article_id: article_id,
+                            user_id: user_id,
+                            content: content,
+                            parent_id: parent_id,
+                        },
+                        success: function (data) {
+                            console.log(data);
+                            $(`#reply_push`).parent().parent().remove();
+                            var id = data['id'];
+                            var create_time = data['create_time'];
+                            var comment_html = `<div class="comment-group"><hr><div class="row"><div class="col-md-1"><img src=${avatar} alt="" width="30" height="30"></div><div class="col-md-11"><div class="row"><div class="col-md-12"><p class="pull-left">${username}</p><p class="pull-right">${create_time}</p></div></div><div clas="row"><div class="content"><p>${content}</p></div><div><span id="like_${id}">查看全部</span><span>&nbsp;&nbsp;&nbsp;</span><span class="reply" value="${id}">回复</span><span class="delete_comment pull-right" delete_id="${id}">删除</span></div><div class="child_comments"></div></div></div></div></div>`
+                            $(`#like_${parent_id}`).parent().next().append(comment_html);
+
+                            button = true;
+                        }
+                    })
+                })
+            }
+            button = false;
+
+        })
+
+//         $(".reply").click(function () {
+//                         if (button) {
+//                             let id = $(this).attr("value");
+//                             console.log(id);
+//                             let reply = `<div class='reply_content row'>
+//     <div class="col-md-10"><textarea class="form-control" rows="2"></textarea></div>
+//     <div class="col-md-2">
+//         <a id="reply_push" class="btn btn-default pull-right" role="button"  value="${id}">发布</a>
+//     </div>
+// </div>`
+//                             $(this).parent().next().prepend(reply);
+//                             $(this).attr({"disabled": true});
+//
+//                             //绑定评论事件
+//                             $(`#reply_push`).click(function () {
+//                                 var article_id = $("#article_id").attr("value");
+//                                 var user_id = $("#user_id").attr("value");
+//                                 var content = $(this).parent().prev().find('textarea').val();
+//                                 var parent_id = $(this).attr('value');
+//                                 var username = $("#username").attr("value");
+//                                 var avatar = $("#avatar").attr("value");
+//                                 $.ajax({
+//                                     url: "/blog/comment/",
+//                                     type: "POST",
+//                                     data: {
+//                                         article_id: article_id,
+//                                         user_id: user_id,
+//                                         content: content,
+//                                         parent_id: parent_id,
+//                                     },
+//                                     success: function (data) {
+//                                         console.log(data);
+//                                         $(`#reply_push`).parent().parent().remove();
+//                                         var id = data['id'];
+//                                         var create_time = data['create_time'];
+//                                         var comment_html = `<div class="comment-group"><hr><div class="row"><div class="col-md-1"><img src=${avatar} alt="" width="30" height="30"></div><div class="col-md-11"><div class="row"><div class="col-md-12"><p class="pull-left">${username}</p><p class="pull-right">${create_time}</p></div></div><div clas="row"><div class="content"><p>${content}</p></div><div><span id="like_${id}">查看全部</span><span>&nbsp;&nbsp;&nbsp;</span><span class="reply" value="${id}">回复</span><span class="delete_comment pull-right" delete_id="${id}">删除</span></div><div class="child_comments"></div></div></div></div></div>`
+//                                         $(`#like_${parent_id}`).parent().next().append(comment_html);
+//                                     }
+//                                 })
+//                             })
+//                         }
+//                         button = false;
+//
+//                     });
 
 
     })
