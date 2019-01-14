@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3fbd38d6-6432-4776-a9ec-49802271e07f" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/blog/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/blog/templates/blog/article.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/blog/article.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/templates/blog/layout.html" beforeDir="false" afterPath="$PROJECT_DIR$/blog/templates/blog/layout.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/utils/response.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/utils/response.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blog/views/comment.py" beforeDir="false" afterPath="$PROJECT_DIR$/blog/views/comment.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -149,7 +145,7 @@
         <counts>
           <entry key="cell" value="31" />
           <entry key="dummy" value="14" />
-          <entry key="html" value="12417" />
+          <entry key="html" value="12458" />
           <entry key="md" value="63" />
           <entry key="py" value="15019" />
           <entry key="txt" value="19" />
@@ -157,7 +153,7 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="12417" />
+          <entry key="HTML" value="12458" />
           <entry key="Markdown" value="63" />
           <entry key="PLAIN_TEXT" value="33" />
           <entry key="Python" value="15019" />
@@ -225,8 +221,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/blog/templates/blog/article.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1181">
-              <caret line="241" column="42" selection-start-line="241" selection-start-column="42" selection-end-line="241" selection-end-column="42" />
+            <state relative-caret-position="1646">
+              <caret line="169" column="9" lean-forward="true" selection-start-line="169" selection-start-column="9" selection-end-line="169" selection-end-column="9" />
               <folding>
                 <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
                 <element signature="e#412#418#0" expanded="true" />
@@ -235,10 +231,11 @@
                 <element signature="e#416#422#0" expanded="true" />
                 <element signature="e#422#428#0" expanded="true" />
                 <element signature="e#428#434#0" expanded="true" />
-                <element signature="e#8088#8500#0" />
+                <element signature="e#7829#10737#0" />
                 <element signature="e#416#422#0" expanded="true" />
                 <element signature="e#422#428#0" expanded="true" />
                 <element signature="e#428#434#0" expanded="true" />
+                <element signature="e#9313#10049#0" />
               </folding>
             </state>
           </provider>
@@ -976,8 +973,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/blog/templates/blog/article.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1181">
-          <caret line="241" column="42" selection-start-line="241" selection-start-column="42" selection-end-line="241" selection-end-column="42" />
+        <state relative-caret-position="1646">
+          <caret line="169" column="9" lean-forward="true" selection-start-line="169" selection-start-column="9" selection-end-line="169" selection-end-column="9" />
           <folding>
             <element signature="n#style#0;n#div#3;n#div#0;n#!!top" expanded="true" />
             <element signature="e#412#418#0" expanded="true" />
@@ -986,10 +983,11 @@
             <element signature="e#416#422#0" expanded="true" />
             <element signature="e#422#428#0" expanded="true" />
             <element signature="e#428#434#0" expanded="true" />
-            <element signature="e#8088#8500#0" />
+            <element signature="e#7829#10737#0" />
             <element signature="e#416#422#0" expanded="true" />
             <element signature="e#422#428#0" expanded="true" />
             <element signature="e#428#434#0" expanded="true" />
+            <element signature="e#9313#10049#0" />
           </folding>
         </state>
       </provider>

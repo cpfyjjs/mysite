@@ -140,8 +140,6 @@
         function generateComment() {
             //发送一个Ajax请求获取评论。
             var article_id = $("#article_id").attr("value");
-
-
             $.ajax({
                 url: `/blog/comment/?article_id=${article_id}`,
                 type: "GET",
@@ -167,33 +165,6 @@
                             $(`#like_${parent_comment_id}`).parent().next().append(comment_html);
                         }
                     }
-
-
-                    //为每个评论绑定删除事件
-                    $("#comment_body .delete_comment").click(function () {
-                        let delete_id = $(this).attr("delete_id");
-                        let that = this;
-                        //发送ajax删除评论
-                        $.ajax({
-                            url: "/blog/comment/",
-                            type: "DELETE",
-                            data: {
-                                delete_id: delete_id,
-                            },
-                            success: function (data) {
-                                let ret = data;
-                                if (ret.code === 100) {
-                                    alert("删除失败")
-                                } else {
-                                    console.log(that);
-                                    $(that).parentsUntil('.comment-group').remove('hr');
-                                    $(that).parentsUntil('.comment-group').remove();
-                                }
-                            },
-                        })
-                    })
-
-
                 }
             })
         }
@@ -246,52 +217,33 @@
             }
             button = false;
 
-        })
+        });
 
-//         $(".reply").click(function () {
-//                         if (button) {
-//                             let id = $(this).attr("value");
-//                             console.log(id);
-//                             let reply = `<div class='reply_content row'>
-//     <div class="col-md-10"><textarea class="form-control" rows="2"></textarea></div>
-//     <div class="col-md-2">
-//         <a id="reply_push" class="btn btn-default pull-right" role="button"  value="${id}">发布</a>
-//     </div>
-// </div>`
-//                             $(this).parent().next().prepend(reply);
-//                             $(this).attr({"disabled": true});
-//
-//                             //绑定评论事件
-//                             $(`#reply_push`).click(function () {
-//                                 var article_id = $("#article_id").attr("value");
-//                                 var user_id = $("#user_id").attr("value");
-//                                 var content = $(this).parent().prev().find('textarea').val();
-//                                 var parent_id = $(this).attr('value');
-//                                 var username = $("#username").attr("value");
-//                                 var avatar = $("#avatar").attr("value");
-//                                 $.ajax({
-//                                     url: "/blog/comment/",
-//                                     type: "POST",
-//                                     data: {
-//                                         article_id: article_id,
-//                                         user_id: user_id,
-//                                         content: content,
-//                                         parent_id: parent_id,
-//                                     },
-//                                     success: function (data) {
-//                                         console.log(data);
-//                                         $(`#reply_push`).parent().parent().remove();
-//                                         var id = data['id'];
-//                                         var create_time = data['create_time'];
-//                                         var comment_html = `<div class="comment-group"><hr><div class="row"><div class="col-md-1"><img src=${avatar} alt="" width="30" height="30"></div><div class="col-md-11"><div class="row"><div class="col-md-12"><p class="pull-left">${username}</p><p class="pull-right">${create_time}</p></div></div><div clas="row"><div class="content"><p>${content}</p></div><div><span id="like_${id}">查看全部</span><span>&nbsp;&nbsp;&nbsp;</span><span class="reply" value="${id}">回复</span><span class="delete_comment pull-right" delete_id="${id}">删除</span></div><div class="child_comments"></div></div></div></div></div>`
-//                                         $(`#like_${parent_id}`).parent().next().append(comment_html);
-//                                     }
-//                                 })
-//                             })
-//                         }
-//                         button = false;
-//
-//                     });
+
+        //为每个评论绑定删除事件
+        $("#comment_body").on("click",'.delete_comment',function () {
+            let delete_id = $(this).attr("delete_id");
+            let that = this;
+            //发送ajax删除评论
+            $.ajax({
+                url: "/blog/comment/",
+                type: "DELETE",
+                data: {
+                    delete_id: delete_id,
+                },
+                success: function (data) {
+                    let ret = data;
+                    if (ret.code === 100) {
+                        alert("删除失败")
+                    } else {
+                        console.log(that);
+                        $(that).parentsUntil('.comment-group').remove('hr');
+                        $(that).parentsUntil('.comment-group').remove();
+                    }
+                },
+            })
+        });
+
 
 
     })
