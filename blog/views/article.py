@@ -72,6 +72,7 @@ class ArticlesView(View):
             id = int(id)
             art_obj = Article.objects.filter(id=id).first()
             art_detail = art_obj.detail
+            comments = art_obj.comment_set.all()
             return render(request,"blog/article.html",locals())
         else:
             art_objs = Article.objects.all()

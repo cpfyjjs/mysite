@@ -15,11 +15,18 @@
 
 <!--内容填充-->
 {% block container %}
+
+{% load poll_extras %}
+
 <div class="row">
+    <div>
+        <span id="article_id" value="{{art_obj.id}}"></span>
+        <span id="user_id" value="{{request.user.id}}"></span>
+    </div>
     <!--文章-->
     <div class="col-md-8 ">
         <div class="art_header">
-
+            <h2>{{art_obj.title}}</h2>
         </div>
 
         <div class="art_body">
@@ -34,7 +41,7 @@
                 <li role="presentation"><a href="#"><span class="badge">C##</span></a></li>
             </ul>
             <!--<div class="row">-->
-                <!--<div class="col-md-4">点赞</div>-->
+            <!--<div class="col-md-4">点赞</div>-->
             <!--</div>-->
         </div>
 
@@ -47,47 +54,23 @@
                     <textarea name="" id="comment" class="form-control" rows="5"></textarea>
 
                     <a id="comment_push" class="btn btn-default pull-right" role="button" style="margin-top: 5px">发布</a>
-
-
                 </div>
             </div>
             <hr>
         </div>
 
         <div class="comments">
-
             <div class="panel panel-default">
                 <div class="panel-heading">评论</div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-1">头像</div>
-                        <div class="col-md-11">
-                            <div>
-                                <span>作者</span>
-                                <span class="pull-right">时间</span>
-                            </div>
-                            <div class="content">
-                                真好看
-                            </div>
-                            <div>
-                                <span>点赞</span>
-                                <span>回复</span>
-                            </div>
-                        </div>
-                    </div>
-                    <hr>
+                <div class="panel-body" id="content_body">
+
                 </div>
                 <div class="panel-footer">Panel footer</div>
             </div>
-
-
         </div>
-
-
     </div>
 
     <div class="col-md-1"></div>
-
     <!--侧边栏-->
     <div class="col-md-3" style="margin-top: 20px">
         <div class="panel panel-success">
@@ -121,11 +104,6 @@
 </div>
 
 
-<div>
-    <span id="article_id" value="{{art_obj.id}}"></span>
-    <span id="user_id" value="{{request.user.id}}"></span>
-</div>
-
 {% endblock %}
 
 
@@ -134,25 +112,104 @@
 <script>
     $(function () {
 
+        let button = true;
+
         //发布评论
         $("#comment_push").click(function () {
             var article_id = $("#article_id").attr("value");
             var user_id = $("#user_id").attr("value");
             var content = $("#comment").val();
             $.ajax({
-                url:"/blog/comment/",
-                type:"POST",
-                data:{
-                    article_id:article_id,
-                    user_id:user_id,
-                    content:content,
+                url: "/blog/comment/",
+                type: "POST",
+                data: {
+                    article_id: article_id,
+                    user_id: user_id,
+                    content: content,
                 },
-                success:function (data) {
+                success: function (data) {
                     console.log(data)
                 }
             })
         })
+
+
+        //动态生成评论
+        function generateComment() {
+            //发送一个Ajax请求获取评论。
+            var article_id = $("#article_id").attr("value");
+
+
+            $.ajax({
+                url: `/blog/comment/?article_id=${article_id}`,
+                type: "GET",
+                success: function (data) {
+                    let comments = JSON.parse(data);
+                    for (let item of comments) {
+                        let avatar = item['user__avatar'].replace('blog', '');
+                        let username = item['user__nickname'];
+                        let id = item['id'];
+                        let content = item['content'];
+                        let create_time = item['create_time'];
+                        let parent_comment_id = item[`parent_comment_id`];
+                        console.log(parent_comment_id)
+                        if (parent_comment_id === null) {
+                            var comment_html = `<div class="row"><div class="col-md-1"><img src=${avatar} alt="" width="40" height="40"></div><div class="col-md-11"><div class="row"><div class="col-md-12"><p class="pull-left">${username}</p><p class="pull-right">${create_time}</p></div></div><div clas="row"><div class="content"><p>${content}</p></div><div><span id="like_${id}">点赞</span><span id="reply_${id}" class="btn">回复</span></div><div class="reply"></div>
+                                <div class="child_comments"></div></div></div></div><hr>`
+                            $("#content_body").append(comment_html);
+                        } else {
+
+                        }
+
+                        //为每个生成的评论的回复标签绑定事件
+                        $(`#reply_${id}`).click(function () {
+                            if (button) {
+                                let reply = `<div class=><textarea class="form-control" rows="2"></textarea><a id="reply_push" class="btn btn-default pull-right" role="button" style="margin-top: 5px" value="${id}">发布</a></div>`;
+                                $(this).parent().next().append(reply);
+                                $(this).attr({"disabled": true});
+
+                                $(`#reply_push`).click(function () {
+                                    var article_id = $("#article_id").attr("value");
+                                    var user_id = $("#user_id").attr("value");
+                                    var content = $(this).prev().val();
+                                    var parent_id = $(this).attr('value');
+                                    console.log(parent_id);
+                                    console.log(content);
+
+                                    $.ajax({
+                                        url: "/blog/comment/",
+                                        type: "POST",
+                                        data: {
+                                            article_id: article_id,
+                                            user_id: user_id,
+                                            content: content,
+                                            parent_id: parent_id,
+                                        },
+                                        success: function (data) {
+                                            console.log(data)
+                                        }
+                                    })
+
+
+                                })
+                            }
+                            button = false;
+
+                        });
+
+                        //为每个自评论绑定回复事件
+
+                    }
+                }
+            })
+        }
+
+        generateComment();
+
+
     })
+
+
 </script>
 
 

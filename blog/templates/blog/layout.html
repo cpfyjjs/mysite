@@ -10,7 +10,7 @@
     <script src="/static/bootstrap-3.3.7/js/bootstrap.js"></script>
 
     <style>
-        .bs-docs-footer{
+        .bs-docs-footer {
             margin-top: 150px;
             padding-top: 30px;
             padding-bottom: 30px;
@@ -25,43 +25,40 @@
 
 
 <!--<div class="container-fluid" style="background-color:#e4e4e4">-->
-    <!--<div class="container">-->
+<!--<div class="container">-->
 <div class="header">
-            <!--CcC图标-->
-            <nav class="navbar navbar-inverse">
-            <div class="navbar-left">
-                <a class="navbar-brand navbar-brand" href="" style="font-size: 25px;">个人小站</a>
-            </div>
-            <!--链接导航-->
-            <div class="navbar-right">
-                <a class="navbar-brand" href="/blog/articles/">科普文章</a>
-                <a class="navbar-brand" href="#">技术分享</a>
-                <a class="navbar-brand" href="#">视频教程</a>
-                <a class="navbar-brand" href="/blog/edit/">编辑文章</a>
-                {% if not request.user.username %}
-                <a class="navbar-brand" href="/blog/login">登陆|注册</a>
-                {% else %}
-                <ul class="navbar-brand navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                           aria-haspopup="true" aria-expanded="false">{{ request.user.username }} <span
-                                class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">我的主页</a></li>
-                            <li><a href="#">设置</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="/blog/logout">注销</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                {% endif %}
-            </div>
-                </nav>
+    <!--CcC图标-->
+    <nav class="navbar navbar-inverse">
+        <div class="navbar-left">
+            <a class="navbar-brand navbar-brand" href="" style="font-size: 25px;">个人小站</a>
+        </div>
+        <!--链接导航-->
+        <div class="navbar-right">
+            <a class="navbar-brand" href="/blog/articles/">科普文章</a>
+            <a class="navbar-brand" href="#">技术分享</a>
+            <a class="navbar-brand" href="#">视频教程</a>
+            <a class="navbar-brand" href="/blog/edit/">编辑文章</a>
+            {% if not request.user.username %}
+            <a class="navbar-brand" href="/blog/login">登陆|注册</a>
+            {% else %}
+            <ul class="navbar-brand navbar-right">
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                       aria-haspopup="true" aria-expanded="false">{{ request.user.username }} <span
+                            class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">我的主页</a></li>
+                        <li><a href="#">设置</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="/blog/logout">注销</a></li>
+                    </ul>
+                </li>
+            </ul>
+            {% endif %}
+        </div>
+    </nav>
 
-
-    </div>
-
-
+</div>
 <div class="container">
 </div>
 <div class="container">
@@ -76,21 +73,26 @@
 </div>
 
 
-
 <footer class="bs-docs-footer">
-  <div class="container">
-    <ul class="bs-docs-footer-links">
-      <li><a href="/">个人小站</a></li>
-      <li><a href="/blog/articles/">科普文章</a></li>
-      <li><a href="#">优站精选</a></li>
-      <li><a href="">关于</a></li>
-    </ul>
+    <div class="container">
+        <ul class="bs-docs-footer-links">
+            <li><a href="/">个人小站</a></li>
+            <li><a href="/blog/articles/">科普文章</a></li>
+            <li><a href="#">优站精选</a></li>
+            <li><a href="">关于</a></li>
+        </ul>
 
-    <p>Designed and built with all the love in the world by <a href="https://twitter.com/mdo" target="_blank">@mdo</a> and <a href="https://twitter.com/fat" target="_blank">@fat</a>. Maintained by the <a href="https://github.com/orgs/twbs/people">core team</a> with the help of <a href="https://github.com/twbs/bootstrap/graphs/contributors">our contributors</a>.</p>
+        <p>Designed and built with all the love in the world by <a href="https://twitter.com/mdo"
+                                                                   target="_blank">@mdo</a> and <a
+                href="https://twitter.com/fat" target="_blank">@fat</a>. Maintained by the <a
+                href="https://github.com/orgs/twbs/people">core team</a> with the help of <a
+                href="https://github.com/twbs/bootstrap/graphs/contributors">our contributors</a>.</p>
 
-    <p>本项目源码受 <a rel="license" href="https://github.com/twbs/bootstrap/blob/master/LICENSE" target="_blank">MIT</a>开源协议保护，文档受 <a rel="license" href="https://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a> 开源协议保护。</p>
+        <p>本项目源码受 <a rel="license" href="https://github.com/twbs/bootstrap/blob/master/LICENSE" target="_blank">MIT</a>开源协议保护，文档受
+            <a rel="license" href="https://creativecommons.org/licenses/by/3.0/" target="_blank">CC BY 3.0</a> 开源协议保护。
+        </p>
 
-  </div>
+    </div>
 </footer>
 
 {% block script %}
