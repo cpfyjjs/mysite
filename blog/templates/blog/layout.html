@@ -39,7 +39,7 @@
             <a class="navbar-brand" href="#">视频教程</a>
             <a class="navbar-brand" href="/blog/edit/">编辑文章</a>
             {% if not request.user.username %}
-            <a class="navbar-brand" href="/blog/login">登陆|注册</a>
+            <a class="navbar-brand" href="/blog/login/">登陆|注册</a>
             {% else %}
             <ul class="navbar-brand navbar-right">
                 <li class="dropdown">
@@ -98,32 +98,6 @@
 {% block script %}
 {% endblock %}
 
-
-<div class="row">
-    <div class="col-md-1"><img src=${avatar} alt="" width="30" height="30"></div>
-    <div class="col-md-11">
-        <div class="row">
-            <div class="col-md-12"><p class="pull-left">${username}</p>
-                <p class="pull-right">${create_time}</p></div>
-        </div>
-        <div clas="row">
-            <div class="content"><p>${content}</p></div>
-            <div><span id="like_${id}">查看全部</span><span>&nbsp;&nbsp;&nbsp;</span><span class="reply">回复</span><span
-                    class="pull-right">删除</span></div>
-            <div class="child_comments"></div>
-        </div>
-    </div>
-</div>
-<hr>
-
-
-<div class='reply_content row'>
-    <div class="col-md-10"><textarea class="form-control" rows="2"></textarea></div>
-    <div class="col-md-2">
-        <a id="reply_push" class="btn btn-default pull-right" role="button" style="margin-top: 5px" value="${id}">发布</a>
-    </div>
-    <hr>
-</div>
 
 </body>
 </html>

@@ -25,6 +25,9 @@
 
 {% load poll_extras %}
 <div class="row" style="margin-top: 10px">
+    <div>
+        <span id="username" value="{{request.user.username}}"></span>
+    </div>
     <div class="col-md-8">
 
         {% for item in art_objs %}
@@ -33,56 +36,88 @@
             <div class="row">
                 <div class="col-md-1"><img src="{{item.user.avatar|avatar_cut}}" alt="" width="40" height="40"></div>
                 <div class="col-md-11">
-                    <div>
-                        <span>{{item.user}}</span><span>个人简介</span>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <p class="pull-left">{{item.user}}</p>
+                            <p class="pull-left">个人简介</p>
+                            <p class="pull-right">{{item.create_time|date:"D d M Y"}}</p>
+                        </div>
                     </div>
                     <div>
-                        {{item.description}}
+
+                        <p>{{item.description}}</p>
                     </div>
-                    <div>
-                        <span>关注问题</span>
-                        <span>点赞{{item.up_count}}</span>
-                        <span>评论{{item.comment_count}}</span>
+                    <div class="footer" value="{{item.id}}">
+
+                        <a>关注问题</a>
+                        {% if item.id in id_list %}
+                        <a class="up">取消</a>(<span>{{item.up_count}}</span>)
+                        {% else %}
+                        <a class="up">点赞</a>(<span>{{item.up_count}}</span>)
+                        {% endif %}
+                        <a href="/blog/articles/?id={{item.id}}#comment">评论</a>(<span>{{item.comment_count}}</span>)
+
                     </div>
                 </div>
             </div>
         </div>
         <hr>
         {% endfor %}
-
+        <nav aria-label="...">
+            <ul class="pagination">
+                {{pagination.get_html|safe}}
+            </ul>
+        </nav>
 
     </div>
     <div class="col-md-1"></div>
     <div class="col-md-3" style="margin-top: 20px">
-        <div class="panel panel-default">
-            <div class="panel-heading">Panel heading without title</div>
-            <!--<div class="panel-body">-->
 
-            <!--</div>-->
-            <ul class="list-group">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading">Panel heading without title</div>
-     
-            <ul class="list-group">
-                    <li class="list-group-item">Cras justo odio</li>
-                    <li class="list-group-item">Dapibus ac facilisis in</li>
-                    <li class="list-group-item">Morbi leo risus</li>
-                    <li class="list-group-item">Porta ac consectetur ac</li>
-                    <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
-        </div>
-
+        {% right_menu params%}
 
     </div>
+
 </div>
 
+{% endblock %}
 
+{% block script %}
+<script>
+
+    $(function () {
+
+        $(".footer").on("click", ".up", function () {
+            let article_id = $(this).parent().attr('value');
+            let username = $("#username").attr('value');
+            let that = this;
+            if (username === '') {
+                alert("请先登陆");
+            } else {
+                $.ajax({
+                    url: '/blog/article_up/',
+                    type: 'POST',
+                    data: {
+                        article_id: article_id,
+                    },
+                    success: function (ret) {
+                        let count =parseInt($(that).next().text()) ;
+                        console.log(count-1);
+                        if (ret.code === 100) {
+                            $(that).text("点赞");
+                            $(that).next().text(count - 1);
+                        } else if (ret.code === 200) {
+                            $(that).text("取消");
+                            $(that).next().text(count + 1);
+
+                        }
+                    }
+                })
+            }
+
+
+        })
+
+    })
+
+</script>
 {% endblock %}

@@ -75,31 +75,8 @@
     <div class="col-md-1"></div>
     <!--侧边栏-->
     <div class="col-md-3" style="margin-top: 20px">
-        <div class="panel panel-success">
-            <div class="panel-heading">Panel heading without title</div>
-            <!--<div class="panel-body">-->
-
-            <!--</div>-->
-            <ul class="list-group">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Morbi leo risus</li>
-                <li class="list-group-item">Porta ac consectetur ac</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
-        </div>
-
-        <div class="panel panel-info">
-            <div class="panel-heading">Panel heading without title</div>
-
-            <ul class="list-group">
-                <li class="list-group-item">Cras justo odio</li>
-                <li class="list-group-item">Dapibus ac facilisis in</li>
-                <li class="list-group-item">Morbi leo risus</li>
-                <li class="list-group-item">Porta ac consectetur ac</li>
-                <li class="list-group-item">Vestibulum at eros</li>
-            </ul>
-        </div>
+        <div class="panel ">
+          {% right_menu %}
 
 
     </div>
@@ -113,26 +90,40 @@
 
 <script>
     $(function () {
+        let button;
 
-        let button = true;
+        let username = $("#username").attr("value");
+        if (username) {
+            button = true;
+
+        } else {
+            button = false;
+        }
+        console.log(button);
+
 
         //发布评论
         $("#comment_push").click(function () {
-            var article_id = $("#article_id").attr("value");
-            var user_id = $("#user_id").attr("value");
-            var content = $("#comment").val();
-            $.ajax({
-                url: "/blog/comment/",
-                type: "POST",
-                data: {
-                    article_id: article_id,
-                    user_id: user_id,
-                    content: content,
-                },
-                success: function (data) {
-                    console.log(data)
-                }
-            })
+            if (button) {
+                var article_id = $("#article_id").attr("value");
+                var user_id = $("#user_id").attr("value");
+                var content = $("#comment").val();
+                $.ajax({
+                    url: "/blog/comment/",
+                    type: "POST",
+                    data: {
+                        article_id: article_id,
+                        user_id: user_id,
+                        content: content,
+                    },
+                    success: function (data) {
+                        console.log(data)
+                    }
+                })
+            }else {
+                alert("请先登陆")
+            }
+
         })
 
 
@@ -145,22 +136,29 @@
                 type: "GET",
                 success: function (data) {
                     let comments = JSON.parse(data);
+                    let user_id = $("#user_id").attr("value");
                     for (let item of comments) {
                         let avatar = item['user__avatar'].replace('blog', '');
                         let username = item['user__nickname'];
                         let id = item['id'];
                         let content = item['content'];
                         let create_time = item['create_time'];
-                        let parent_comment_id = item[`parent_comment_id`];
-                        let depth = item['depth'];
+                        let parent_comment_id = item['parent_comment_id'];
+                        let comment_user_id = item['user_id'].toString();
 
+
+                        let depth = item['depth'];
+                        let delete_str = '';
+                        if (comment_user_id === user_id) {
+                            delete_str = '删除';
+                        }
 
                         if (parent_comment_id === null) {
-                            var comment_html = `<div class="comment-group"><div class="row"><div class="col-md-1"><img src=${avatar} alt="" width="30" height="30"></div><div class="col-md-11"><div class="row"><div class="col-md-12"><p class="pull-left">${username}</p><p class="pull-right">${create_time}</p></div></div><div clas="row"><div class="content"><p>${content}</p></div><div><span id="like_${id}">查看全部</span><span>&nbsp;&nbsp;&nbsp;</span><span class="reply" value="${id}">回复</span><span class="delete_comment pull-right" delete_id="${id}">删除</span></div>
+                            var comment_html = `<div class="comment-group"><div class="row"><div class="col-md-1"><img src=${avatar} alt="" width="30" height="30"></div><div class="col-md-11"><div class="row"><div class="col-md-12"><p class="pull-left">${username}</p><p class="pull-right">${create_time}</p></div></div><div clas="row"><div class="content"><p>${content}</p></div><div><span id="like_${id}">查看全部</span><span>&nbsp;&nbsp;&nbsp;</span><span class="reply" value="${id}">回复</span><span class="delete_comment pull-right" delete_id="${id}">${delete_str}</span></div>
                                 <div class="child_comments"></div></div></div></div><hr></div>`
                             $("#comment_body").append(comment_html);
                         } else {
-                            var comment_html = `<div class="comment-group"><hr><div class="row"><div class="col-md-1"><img src=${avatar} alt="" width="30" height="30"></div><div class="col-md-11"><div class="row"><div class="col-md-12"><p class="pull-left">${username}</p><p class="pull-right">${create_time}</p></div></div><div clas="row"><div class="content"><p>${content}</p></div><div><span id="like_${id}">查看全部</span><span>&nbsp;&nbsp;&nbsp;</span><span class="reply" value="${id}">回复</span><span class="delete_comment pull-right" delete_id="${id}">删除</span></div>
+                            var comment_html = `<div class="comment-group"><hr><div class="row"><div class="col-md-1"><img src=${avatar} alt="" width="30" height="30"></div><div class="col-md-11"><div class="row"><div class="col-md-12"><p class="pull-left">${username}</p><p class="pull-right">${create_time}</p></div></div><div clas="row"><div class="content"><p>${content}</p></div><div><span id="like_${id}">查看全部</span><span>&nbsp;&nbsp;&nbsp;</span><span class="reply" value="${id}">回复</span><span class="delete_comment pull-right" delete_id="${id}">${delete_str}</span></div>
                                 <div class="child_comments"></div></div></div></div></div>`
                             $(`#like_${parent_comment_id}`).parent().next().append(comment_html);
                         }
@@ -214,14 +212,17 @@
                         }
                     })
                 })
+            }else{
+                alert("请先登录");
             }
+
             button = false;
 
         });
 
 
         //为每个评论绑定删除事件
-        $("#comment_body").on("click",'.delete_comment',function () {
+        $("#comment_body").on("click", '.delete_comment', function () {
             let delete_id = $(this).attr("delete_id");
             let that = this;
             //发送ajax删除评论
@@ -243,7 +244,6 @@
                 },
             })
         });
-
 
 
     })

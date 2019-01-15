@@ -11,7 +11,7 @@ from django.db import transaction
 from blog.models import UserInfo,Article,ArticleDetail
 from blog.utils.response import BaseResponse
 # Create your views here.
-
+from blog.utils import page
 
 
 class EditView(View):
@@ -67,6 +67,12 @@ class ArticlesView(View):
     """文章列表页"""
 
     def get(self,request):
+        user_id = request.user.id
+        if user_id:
+            id_list =UserInfo.objects.get(id=user_id).articleup_set.values_list("article_id")
+            id_list = [i for j in id_list for i in j]
+        else:
+            id_list =[]
         if request.GET.get('id'):
             id = request.GET.get('id')
             id = int(id)
@@ -75,9 +81,29 @@ class ArticlesView(View):
             comments = art_obj.comment_set.all()
             return render(request,"blog/article.html",locals())
         else:
-            art_objs = Article.objects.all()
-            return render(request, "blog/articles.html", {'art_objs': art_objs})
+            # all_count = Article.objects.all().count()
+            base_url = request.path
+            current_page = request.GET.get("page")
+            all_obj = Article.objects.all()
+            tag_id = request.GET.get('tag_id')
+            category_id = request.GET.get('category_id')
+            if tag_id:
+                all_obj =all_obj.filter(tags=tag_id)
+            if category_id:
+                all_obj =all_obj.filter(category_id =category_id)
+            all_count = all_obj.count()
+
+
+
+            pagination = page.Pagination(all_count,current_page,base_url,request.GET)
+            art_objs = all_obj[pagination.start:pagination.end]
+            # art_objs = Article.objects.all()[pagination.start:pagination.end]
+            params = request.GET
+
+            return render(request, "blog/articles.html", {'art_objs':art_objs,
+                                                          'pagination':pagination,'params':params,'id_list':id_list})
 
 
     def post(self,request):
         pass
+

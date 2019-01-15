@@ -7,7 +7,7 @@ from django.utils import timezone
 
 class UserInfo(AbstractUser):
     """
-    用户信息表
+    用户信息表blog/static/avatars/default.png
     """
     nickname = models.CharField(max_length=32,default="匿名用户",verbose_name="昵称")
     avatar = models.FileField(upload_to="blog/static/avatars/", default="blog/static/avatars/default.png", verbose_name="头像")

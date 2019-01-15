@@ -69,7 +69,10 @@ class RegisterView(View):
             avatar_img = request.FILES.get('avatar')
             password = form_obj.cleaned_data.pop('password')
             password = make_password(password)
-            UserInfo.objects.create(**form_obj.cleaned_data,avatar=avatar_img,password=password)
+            if avatar_img:
+                UserInfo.objects.create(**form_obj.cleaned_data,avatar=avatar_img,password=password)
+            else:
+                UserInfo.objects.create(**form_obj.cleaned_data,password=password)
             return JsonResponse(ret.dict)
         else:
             ret.code = 100
