@@ -13,29 +13,40 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.urls import path,include,register_converter
+from django.urls import path, include, register_converter
 from django.shortcuts import HttpResponse
 from django.contrib import admin
 from blog.views import registe
 from rbac import views
+from xadmin.service.stark import site
+
+
+def login(requset):
+    return HttpResponse('login')
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', registe.index_view),
-    path('login/',views.LoginView.as_view()),
+    path('login/', views.LoginView.as_view()),
     path('blog/', include('blog.urls')),
+    path('xadmin/', include('xadmin.urls')),
+    path('stark/', site.urls),
 ]
 
 
 def bad_request(request):
     pass
 
+
 def permission_denied(request):
     pass
 
+
 def pag_not_found(request):
     return HttpResponse("meiyou")
+
+
 """
 自定义用户请求错误页面。
 需要提前将setting.py配置文件中的Debug改为False,默认为True

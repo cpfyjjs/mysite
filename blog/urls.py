@@ -1,5 +1,4 @@
 from django.urls import path
-from django.urls import re_path
 from blog.views import registe
 from blog.views import article
 from blog.views import blog
