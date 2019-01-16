@@ -3,12 +3,66 @@ from django.urls import include
 from django.shortcuts import HttpResponse, render, redirect
 
 
+class ShowList(object):
+    def __init__(self, config, data_list, request):
+        pass
+
+    def get_filter_tags(self):
+        pass
+
+    def get_action_list(self):
+        pass
+
+    def get_header(self):
+        pass
+
+    def get_body(self):
+        pass
+
+
 class XAdminStark(object):
     list_display = ['__str__']
+    list_display_links = []
 
     def __init__(self, model, site):
         self.model = model
         self.site = site
+
+    def edit(self, obj=None, header=False):
+        pass
+
+    def delete(self, obj=None, header=False):
+        pass
+
+    def checkbox(self, obj=None, header=False):
+        pass
+
+    def get_modelform_class(self):
+        pass
+
+    def new_list_play(self):
+        temp = []
+        temp.append(XAdminStark.checkbox)
+        temp.extend(self.list_display)
+        if not self.list_display_links:
+            temp.append(XAdminStark.edit)
+        temp.append(XAdminStark.delete)
+        return temp
+
+    def get_delete_url(self, obj):
+        pass
+
+    def get_add_url(self, obj):
+        pass
+
+    def get_list_url(self, obj):
+        pass
+
+    def get_search_condition(self, request):
+        pass
+
+    def get_filter_condition(self, request):
+        pass
 
     def add_view(self, request):
         pass
@@ -20,9 +74,11 @@ class XAdminStark(object):
         pass
 
     def list_view(self, request):
-        
+        pass
 
-        return HttpResponse('23')
+        # 生成数据列表
+
+        return render(request, 'xadmin/list_view.html', locals())
 
     def get_urls(self):
         temp = []
@@ -36,7 +92,6 @@ class XAdminStark(object):
         temp.append(path('', self.list_view, name='{0}_{1}_list_view'.format(app_name, model_name)))
 
         # 增加用户登陆相关的url
-        temp.append()
 
         return temp
 

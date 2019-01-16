@@ -18,7 +18,7 @@ from django.shortcuts import HttpResponse
 from django.contrib import admin
 from blog.views import registe
 from rbac import views
-from xadmin.service.stark import site
+from xadmin.service.xadmin import site
 
 
 def login(requset):
