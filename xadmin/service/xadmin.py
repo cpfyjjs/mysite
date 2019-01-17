@@ -1,9 +1,15 @@
+from collections import defaultdict
+from collections import namedtuple
 from django.urls import path
 from django.urls import include
-from django.shortcuts import HttpResponse
 from django.shortcuts import render
+from django.shortcuts import HttpResponse
 from django.shortcuts import redirect
 from django.shortcuts import reverse
+from django.db.models import Q
+from django.db.models.fields.related import ManyToManyField
+from django.db.models.fields.related import ForeignKey
+from django.utils.safestring import mark_safe
 
 from utils import page
 
@@ -22,7 +28,7 @@ class ShowList(object):
 
         # 分页
         data_count = self.data_list.count()
-        current_page = int(self.request.get('page', 1))
+        current_page = int(self.request.GET.get('page', 1))
         base_url = self.request.path
 
         self.pagination = page.Pagination(data_count, current_page, base_url, self.request.GET, per_page=4, max_show=5)
@@ -64,6 +70,8 @@ class XAdminModel(object):
         """
         self.model = model
         self.site = site
+        self.model_name = self.model._meta.model_name
+        self.app_label = self.model._meta.app_label
 
     def patch_delete(self, request, queryset):
         """
@@ -83,7 +91,11 @@ class XAdminModel(object):
         :param header:是否是表头
         :return:
         """
-        pass
+        if header:
+            return "操作"
+        _url = self.get_change_url(obj)
+
+        return mark_safe("<a href='{}'>编辑</a>".format(_url))
 
     def delete(self, obj=None, header=False):
         """
@@ -92,7 +104,12 @@ class XAdminModel(object):
         :param header:
         :return:
         """
-        pass
+        if header:
+            return "操作"
+        _url = self.get_delete_url(obj)
+
+        return mark_safe("<a href='{}'>删除</a>".format(_url))
+
 
     def checkbox(self, obj=None, header=False):
         """
@@ -101,14 +118,24 @@ class XAdminModel(object):
         :param header:
         :return:
         """
-        pass
+        if header:
+            return mark_safe("<input id='choice' type='checkbox'>")
+        return mark_safe("<input class='choice_item' type='checkbox' name='selected_pk' value='{}'".format(obj.pk))
 
     def get_modelform_class(self):
-        pass
+        if not self.modelform_class:
+            from django.forms import ModelForm
+            class ModelFormDemo(ModelForm):
+                class Meta:
+                    model = self.model
+                    field = "__all__"
+                    labels = {}
+            return ModelFormDemo
+        else:
+            return self.modelform_class
 
     def new_list_play(self):
         """
-
         :return:
         """
         temp = []
@@ -121,7 +148,6 @@ class XAdminModel(object):
 
     def new_actions(self):
         """
-
         :return:
         """
         temp = []
@@ -136,11 +162,7 @@ class XAdminModel(object):
         :param obj:
         :return: url
         """
-        model_name = self.model._meta.model_name
-        app_label = self.model._meta.app_label
-
-        _url = reverse("{}_{}_delete".format(app_label, model_name), kwargs={id: obj.pk})
-
+        _url = reverse("{}_{}_delete".format(self.app_label, self.model_name), kwargs={id: obj.pk})
         return _url
 
     def get_change_url(self, obj):
@@ -149,21 +171,15 @@ class XAdminModel(object):
         :param obj:
         :return:
         """
-        model_name = self.model._meta.model_name
-        app_label = self.model._meta.app_label
-
-        _url = reverse("{}_{}_change".format(app_label, model_name), kwargs={id: obj.pk})
+        _url = reverse("{}_{}_change".format(self.app_label, self.model_name), kwargs={id: obj.pk})
+        return _url
 
     def get_add_url(self):
         """
         获取添加的url
         :return:
         """
-        model_name = self.model._meta.model_name
-        app_label = self.model._meta.app_label
-
-        _url = reverse("{}_{}_add".format(app_label, model_name))
-
+        _url = reverse("{}_{}_add".format(self.app_label, self.model_name))
         return _url
 
     def get_list_url(self):
@@ -171,56 +187,85 @@ class XAdminModel(object):
         获取展示的url
         :return:
         """
-        model_name = self.model._meta.model_name
-        app_label = self.model._meta.app_label
-
-        _url = reverse("{}_{}_list".format(app_label, model_name))
-
+        _url = reverse("{}_{}_list".format(self.app_label, self.model_name))
         return _url
 
     def get_search_condition(self, request):
-        pass
+        """
+        构建搜索的过滤条件
+        :param request:
+        :return:
+        """
+        key_world = request.GET.get('q')
+        self.key_world = key_world
+
+        search_connection = Q()
+        if self.key_world:
+            # example self.key_world = ['title', 'price']
+            search_connection.connector = "or"
+            for search_field in self.search_fields:
+                search_connection.children.append((search_field + "__contains"), key_world)
+        return search_connection
+
 
     def get_filter_condition(self, request):
-        pass
+        """
+        构建标签的过滤条件
+        :param request:
+        :return:
+        """
+        filter_condition = Q()
+        for filter_field, val in request.GET.items():
+            if filter_field in self.list_filter:
+                filter_condition.children.append((filter_field,val))
+        return filter_condition
 
     def add_view(self, request):
         """
-
+        增加数据页面的主函数
         :param request:
         :return:
         """
-        pass
+        return HttpResponse('add_view')
 
     def delete_view(self, request, id):
         """
-
+        删除数据页面的主函数
         :param request:
         :param id:
         :return:
         """
-        pass
+        return HttpResponse('delete view')
 
     def change_view(self, request, id):
         """
-
+        更改数据页面的主函数
         :param request:
         :param id:
         :return:
         """
-        pass
+        return HttpResponse('change_view')
 
     def list_view(self, request):
         """
-
+        展示数据页面的主函数
         :param request:
         :return:
         """
 
+        # 获取search的Q对象
+        search_connection = self.get_search_condition(request)
 
-        # 生成数据列表
+        # 获取filter的Q对象
+        filter_condition = self.get_filter_condition(request)
 
-        return render(request, 'xadmin/list_view.html', locals())
+        # 删选获取当前表的所有数据
+        data_list = self.model.objects.all().filter(search_connection).filter(filter_condition)
+
+        # 按showlist 展示页面
+        showlist= ShowList(self,data_list,request)
+
+        return render(request, 'xadmin/list_view.html', {'showlist':showlist})
 
     def get_urls(self):
         temp = []
@@ -239,7 +284,7 @@ class XAdminModel(object):
 
     @property
     def urls(self):
-        return self.get_urls(), None, None
+        return include(self.get_urls())
 
 
 class XAdminSite(object):
@@ -259,6 +304,13 @@ class XAdminSite(object):
         """
         temp = []
 
+
+        # 与注册模型相关的url
+        for model, xadmin_class_obj in self._register.items():
+            model_name = model._meta.model_name
+            app_label = model._meta.app_label
+            temp.append(path('{}/{}/'.format(app_label, model_name), xadmin_class_obj.urls))
+
         # 整个站点相关的url
         from xadmin.views import account
         site_url = [
@@ -270,12 +322,6 @@ class XAdminSite(object):
         ]
         temp.extend(site_url)
 
-        # 与注册模型相关的url
-        for model, stark_class_obj in self._register.items():
-            model_name = model._meta.model_name
-            app_label = model._meta.app_label
-            temp.append(path('{}/{}'.format(app_label, model_name), stark_class_obj.urls))
-
         return temp
 
     @property
@@ -284,7 +330,38 @@ class XAdminSite(object):
 
 
     def home_view(self, request):
-        pass
+        """
+        XAdminMole展示的主页面
+        :param request:
+        :return:
+        """
+        app_dict = dict()
+        """
+        app_dict = {
+            app_name01:[model_name01,model_name02,model_name03],
+            app_name02: [model_name01, model_name02, model_name03]
+        }
+        """
+        model_url = namedtuple('model_url', 'model_name list_view add_view')
+
+        for model,xadmin_class_obj in self._register.items():
+
+            model_name = model._meta.model_name
+            app_label = model._meta.app_label
+
+            list_view = "/xadmin/{}/{}".format(app_label, model_name)
+            add_view = "/xadmin/{}/{}/add".format(app_label,model_name)
+            temp = model_url(model_name,list_view,add_view)
+            if app_dict.get(app_label):
+                app_dict[app_label].append(temp)
+            else:
+                app_dict[app_label] = [temp]
+        return render(request,'xadmin/home.html',{'app_dict': app_dict})
+
+
+
+
+
 
 
 

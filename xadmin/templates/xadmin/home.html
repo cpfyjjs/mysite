@@ -1,0 +1,39 @@
+{% extends './layout.html' %}
+
+{% block content-header %}
+XAdmin
+{% endblock %}
+
+{% block content %}
+
+<div class="row">
+
+    <div class="col-md-4">
+        {% for app_name,item_list in app_dict.items %}
+        <table class="table ">
+            <tr class="success">
+                <td>
+                    <a href="#" class="disabled">
+                        {{app_name}}
+                    </a>
+                </td>
+                <td></td>
+            </tr>
+
+            {% for item in item_list %}
+            <tr>
+                <td><a href="{{item.list_view}}" >{{item.model_name}}</a></td>
+                <td><a href="{{item.add_view}}">+</a></td>
+            </tr>
+
+            {% endfor %}
+
+        </table>
+        {% endfor %}
+    </div>
+    <div class="col-md-4"></div>
+    <div class="col-md-4"></div>
+
+
+</div>
+{% endblock %}

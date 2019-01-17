@@ -28,11 +28,14 @@ class Pagination(object):
             self.current_page = int(current_page)
         except:
             self.current_page = 1
-        if self.current_page <= 0:
-            self.current_page = 1
 
         if self.current_page > self.page_num:
             self.current_page = self.page_num
+
+        if self.current_page <= 0:
+            self.current_page = 1
+
+
         if self.max_show > self.page_num:
             self.max_show = self.page_num
 
@@ -54,6 +57,7 @@ class Pagination(object):
 
     @property
     def start(self):
+        print(self.current_page)
         return (self.current_page - 1) * self.per_page
 
     @property
