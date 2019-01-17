@@ -30,8 +30,7 @@ urlpatterns = [
     path('', registe.index_view),
     path('login/', views.LoginView.as_view()),
     path('blog/', include('blog.urls')),
-    path('xadmin/', include('xadmin.urls')),
-    path('stark/', site.urls),
+    path('xadmin/', site.urls),
 ]
 
 
