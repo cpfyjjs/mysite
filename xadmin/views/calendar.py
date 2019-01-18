@@ -10,4 +10,10 @@ class CalendarView(View):
 
         return render(requset,'xadmin/calendar.html')
 
+    def post(self,request):
+        pass
+
+    def delete(self,request):
+        pass
+
 
