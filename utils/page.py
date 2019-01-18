@@ -57,7 +57,6 @@ class Pagination(object):
 
     @property
     def start(self):
-        print(self.current_page)
         return (self.current_page - 1) * self.per_page
 
     @property

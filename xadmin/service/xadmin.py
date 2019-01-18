@@ -12,6 +12,7 @@ from django.db.models.fields.related import ForeignKey
 from django.utils.safestring import mark_safe
 
 from utils import page
+from xadmin.views.calendar import CalendarView
 
 
 class ShowList(object):
@@ -25,6 +26,8 @@ class ShowList(object):
         self.config = config
         self.data_list = data_list
         self.request = request
+        self.app_label = self.config.model._meta.app_label
+        self.model_name = self.config.model._meta.model_name
 
         # 分页
         data_count = self.data_list.count()
@@ -47,7 +50,21 @@ class ShowList(object):
 
     # 构建表头
     def get_header(self):
-        pass
+
+        header_list = []
+        # header [checkbox , 'pk','name', edit, delete]
+        for field in self.config.new_list_play():
+            if callable(field):
+                val = field(self.config, header=True)
+                header_list.append(val)
+            elif field == '__str__':
+                header_list.append(self.config.model._meta.model_name.upper())
+            else:
+                val = self.config.model._meta.get_field(field).verbose_name
+                header_list.append(val)
+        return header_list
+
+
 
     # 构建表内数据
     def get_body(self):
@@ -319,6 +336,7 @@ class XAdminSite(object):
             path('logout/', account.logout, name='logout'),
             path('password_change/', account.password_change, name='password_change'),
             path('password_change/done/', account.password_change_done, name='password_change_done'),
+            path('calendar/', CalendarView.as_view(), name='calendar'),
         ]
         temp.extend(site_url)
 
