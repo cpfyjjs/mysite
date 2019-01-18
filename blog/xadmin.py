@@ -4,6 +4,12 @@ from blog.models import Category
 from blog.models import Article
 from blog.models import UserInfo
 from blog.models import Tag
+from blog.models import Author
+from blog.models import Blog
+from blog.models import ArticleDetail
+from blog.models import Article2Tag
+from blog.models import ArticleUp
+from blog.models import Comment
 
 
 
@@ -21,3 +27,9 @@ site.register(Category, CategoryModel)
 site.register(Article, ArticleModel)
 site.register(UserInfo)
 site.register(Tag)
+site.register(Author)
+site.register(Blog)
+site.register(ArticleDetail)
+site.register(ArticleUp)
+site.register(Article2Tag)
+site.register(Comment)

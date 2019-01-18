@@ -38,7 +38,7 @@ class ShowList(object):
         current_page = int(self.request.GET.get('page', 1))
         base_url = self.request.path
 
-        self.pagination = page.Pagination(data_count, current_page, base_url, self.request.GET, per_page=4, max_show=5)
+        self.pagination = page.Pagination(data_count, current_page, base_url, self.request.GET, per_page=10, max_show=5)
         self.page_data = self.data_list[self.pagination.start:self.pagination.end]
 
         # actions
@@ -59,7 +59,6 @@ class ShowList(object):
             filter_field_obj = self.config.model._meta.get_field(filter_field)
 
             if isinstance(filter_field_obj, ForeignKey) or isinstance(filter_field_obj, ManyToManyField):
-                print(filter_field_obj.related_model)
                 """
                 {'name': 'category', 'verbose_name': '所属类别', '_verbose_name': '所属类别', 
                 'primary_key': False, 'max_length': None, '_unique': False, 'blank': False, 
@@ -79,7 +78,6 @@ class ShowList(object):
                 
                 '_related_fields': [(<django.db.models.fields.related.ForeignKey: category>, <django.db.models.fields.AutoField: id>)]}"""
                 data_list = filter_field_obj.related_model.objects.all()
-                print(data_list)
             else:
                 data_list = self.config.model.objects.all().values("pk", filter_field)
 
@@ -367,7 +365,8 @@ class XAdminModel(object):
         if request.method == "POST":
             form = ModelFormDemo(request.POST)
             if form.is_valid():
-                obj = form.save()
+                obj = form.save(commit=False)
+                obj.save()
 
                 pop_res_id = request.GET.get("pop_res_id")
                 if pop_res_id:
@@ -397,7 +396,22 @@ class XAdminModel(object):
         :param id:
         :return:
         """
-        return HttpResponse('change_view')
+        ModelFormDemo = self.get_modelform_class()
+        edit_obj = self.model.objects.filter(pk=id).first()
+
+        if request.method == "POST":
+            form = ModelFormDemo(request.POST, instance=edit_obj)
+            if form.is_valid():
+                obj = form.save(commit=False)
+                obj.save()
+                return redirect(self.get_list_url())
+
+            return render(request, "xadmin/add_view.html", locals())
+
+        form = ModelFormDemo(instance=edit_obj)
+
+        return render(request, "xadmin/change_view.html", locals())
+
 
     def list_view(self, request):
         """
@@ -429,7 +443,7 @@ class XAdminModel(object):
         temp.append(path('add/', self.add_view, name='{0}_{1}_add'.format(app_name, model_name)))
         temp.append(path('<int:id>/delete/', self.delete_view, name='{0}_{1}_delete'.format(app_name, model_name)))
         temp.append(path('<int:id>/change/', self.change_view, name='{0}_{1}_change'.format(app_name, model_name)))
-        temp.append(path('', self.list_view, name='{0}_{1}_list_view'.format(app_name, model_name)))
+        temp.append(path('', self.list_view, name='{0}_{1}_list'.format(app_name, model_name)))
 
         # 增加用户登陆相关的url
 
